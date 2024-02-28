@@ -45,7 +45,7 @@
                 <SolidColorBrush Color="Gray" Opacity="0.1"/>
             </ui:Button.PressedBackground>
         </ui:Button>
-        <ui:Button CornerRadius="20" FontSize="17px" FontFamily="Segoe UI Variable Small Semibold" Icon="People24" Content="Join our Discord!" Margin="670,242,0,0" VerticalAlignment="Top" Height="90" Width="538">
+        <ui:Button CornerRadius="20" FontSize="17px" FontFamily="Segoe UI Variable Small Semibold" Icon="People24" Content="Join our Discord!" Margin="670,242,0,0" VerticalAlignment="Top" Height="90" Width="538" Click="Button_Click_1">
             <ui:Button.Background>
                 <SolidColorBrush Opacity="0.1" Color="Gray"/>
             </ui:Button.Background>

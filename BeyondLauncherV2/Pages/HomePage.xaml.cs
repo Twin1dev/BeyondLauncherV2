@@ -1,20 +1,9 @@
 ﻿using BeyondLauncherV2.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Windows.UI.Core.AnimationMetrics;
 
 namespace BeyondLauncherV2.Pages
 {
@@ -27,7 +16,7 @@ namespace BeyondLauncherV2.Pages
         {
             InitializeComponent();
         }
-
+        #region Events
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ToastUtils.ShowToast("Launching Game..", "This may take a bit.");
@@ -43,12 +32,13 @@ namespace BeyondLauncherV2.Pages
                 parentWindow.WindowState = WindowState.Minimized;
             }
 
+            LoggingSystem.WriteToLog("Launching Game");
 
         }
 
         private void Page_Initialized(object sender, EventArgs e)
         {
-
+          
         }
 
         private void button_MouseEnter(object sender, MouseEventArgs e)
@@ -100,5 +90,19 @@ namespace BeyondLauncherV2.Pages
                 button.BeginAnimation(Button.OpacityProperty, opacityAnimation);
             }
         }
+
+       
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            SimpleUtils.OpenLink("https://discord.gg/beyondmp");
+        }
+
+        private void DonateButton_Click(object sender, RoutedEventArgs e)
+        {
+            SimpleUtils.OpenLink("https://beyond-shop.tebex.io");
+        }
+        #endregion
+
+
     }
 }

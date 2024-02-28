@@ -1,14 +1,6 @@
 ﻿using BeyondLauncherV2.Pages;
-using System.Text;
+using BeyondLauncherV2.Utilities;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BeyondLauncherV2
 {
@@ -20,6 +12,8 @@ namespace BeyondLauncherV2
         public MainWindow()
         {
             InitializeComponent();
+            LoggingSystem.OpenLog();
+            _NavigationFrame.Navigate(new HomePage());
         }
 
         private void NavigationItem_Click(object sender, RoutedEventArgs e)
