@@ -9,7 +9,7 @@
         Title="MainWindow" MinHeight="760"
         ResizeMode="CanMinimize"
         MinWidth="1350"         MaxWidth="1350"
-        MaxHeight="760">
+        MaxHeight="760" Closing="Window_Closing">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
@@ -49,7 +49,7 @@
           Content="Settings"
     
           Icon="Settings16"
-          PageType="{x:Type Page}" />
+          PageType="{x:Type Page}" Click="NavigationItem_Click_1" />
                 <!--  A navigation element that does not point to the page can be used as a button.  -->
 
             </ui:NavigationStore.Footer>

@@ -34,7 +34,7 @@
         </ui:Button>
         <Label x:Name="HelloLabel" Content="Hello, Twin1" FontSize="50px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="118,50,0,0" VerticalAlignment="Top" Height="60" Width="1062"/>
         <Label Content="Welcome to Beyond!" FontSize="15px" HorizontalAlignment="Left" Margin="124,120,0,0" VerticalAlignment="Top"/>
-        <ui:Button CornerRadius="20" FontSize="16px" FontFamily="Segoe UI Variable Small Semibold" Content="Donate" Icon="Heart28" Margin="82,242,0,0" VerticalAlignment="Top" Height="90" Width="563">
+        <ui:Button x:Name="DonateButton" CornerRadius="20" FontSize="16px" FontFamily="Segoe UI Variable Small Semibold" Content="Donate" Icon="Heart28" Margin="82,242,0,0" VerticalAlignment="Top" Height="90" Width="563" Click="DonateButton_Click">
             <ui:Button.Background>
                 <SolidColorBrush Color="Gray" Opacity="0.1"/>
             </ui:Button.Background>

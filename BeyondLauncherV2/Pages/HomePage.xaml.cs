@@ -1,4 +1,5 @@
-﻿using BeyondLauncherV2.Utilities;
+﻿using BeyondLauncherV2.Properties;
+using BeyondLauncherV2.Utilities;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,6 +17,7 @@ namespace BeyondLauncherV2.Pages
         {
             InitializeComponent();
         }
+
         #region Events
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -33,6 +35,9 @@ namespace BeyondLauncherV2.Pages
             }
 
             LoggingSystem.WriteToLog("Launching Game");
+
+            if (Settings.Default.StartRPC)
+                RPC.UpdateRPC("Launching Game", true);
 
         }
 
