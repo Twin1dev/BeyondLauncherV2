@@ -42,7 +42,7 @@
                 <ui:NavigationItem
          
          Content="Library"
-         Icon="Library24" />
+         Icon="Library24" Click="NavigationItem_Click_2" />
             </ui:NavigationStore.Items>
             <ui:NavigationStore.Footer>
                 <ui:NavigationItem

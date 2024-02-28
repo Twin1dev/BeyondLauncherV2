@@ -1,0 +1,66 @@
+﻿<Page x:Class="BeyondLauncherV2.Pages.LibraryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:local="clr-namespace:BeyondLauncherV2.Pages"
+      mc:Ignorable="d" 
+        d:DesignHeight="760" d:DesignWidth="1290"
+      Title="LibraryPage" Loaded="Page_Loaded">
+
+    <Grid x:Name="MainGrid">
+        <Label Content="Library" FontSize="45px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="58,52,0,0" VerticalAlignment="Top" Height="83" Width="432"/>
+        <Label Content="Download/Locate Your Builds!" FontSize="20px" FontFamily="Segoe UI" HorizontalAlignment="Left" Margin="58,110,0,0" VerticalAlignment="Top" Height="49" Width="432"/>
+        <ui:Button CornerRadius="25" Content="" Margin="0,30,0,0" VerticalAlignment="Top" Height="202" Width="1224" HorizontalAlignment="Center" >
+            <ui:Button.Background>
+                <SolidColorBrush Color="#FFFBF2F2" Opacity="0.05"/>
+            </ui:Button.Background>
+            <ui:Button.MouseOverBackground>
+                <SolidColorBrush Color="#FFFBF2F2" Opacity="0.05"/>
+            </ui:Button.MouseOverBackground>
+            <ui:Button.PressedBackground>
+                <SolidColorBrush Color="#FFFBF2F2" Opacity="0.05"/>
+            </ui:Button.PressedBackground>
+        </ui:Button>
+        <ui:Button CornerRadius="25" Content="" Margin="0,258,0,0" VerticalAlignment="Top" Height="452" Width="1224" HorizontalAlignment="Center" >
+            <ui:Button.Background>
+                <SolidColorBrush Color="#FFFBF2F2" Opacity="0.05"/>
+            </ui:Button.Background>
+            <ui:Button.MouseOverBackground>
+                <SolidColorBrush Color="#FFFBF2F2" Opacity="0.05"/>
+            </ui:Button.MouseOverBackground>
+            <ui:Button.PressedBackground>
+                <SolidColorBrush Color="#FFFBF2F2" Opacity="0.05"/>
+            </ui:Button.PressedBackground>
+        </ui:Button>
+        <ui:Button CornerRadius="10" Content="" Margin="58,289,0,0" Height="253" Width="190" VerticalAlignment="Top" >
+            <ui:Button.Background>
+                <SolidColorBrush Color="#FFFBF2F2" Opacity="0.05"/>
+            </ui:Button.Background>
+            <ui:Button.MouseOverBackground>
+                <SolidColorBrush Color="#FFFBF2F2" Opacity="0.05"/>
+            </ui:Button.MouseOverBackground>
+            <ui:Button.PressedBackground>
+                <SolidColorBrush Color="#FFFBF2F2" Opacity="0.05"/>
+            </ui:Button.PressedBackground>
+        </ui:Button>
+        <ui:Button CornerRadius="5" Content="" Margin="72,306,0,0" Height="107" Width="162" VerticalAlignment="Top" >
+            <ui:Button.Background>
+                <ImageBrush ImageSource="/Images/travis-scott-fortnite_3279.png" Stretch="UniformToFill" Opacity="1"/>
+            </ui:Button.Background>
+            <ui:Button.MouseOverBackground>
+                <ImageBrush ImageSource="/Images/travis-scott-fortnite_3279.png" Stretch="UniformToFill"/>
+            </ui:Button.MouseOverBackground>
+            <ui:Button.PressedBackground>
+                <ImageBrush ImageSource="/Images/travis-scott-fortnite_3279.png" Stretch="UniformToFill"/>
+            </ui:Button.PressedBackground>
+        </ui:Button>
+        <Label Content="12.41" FontSize="15px" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="72,421,0,0" VerticalAlignment="Top" Width="162"/>
+        <ui:Button Content="Locate" Icon="Folder24" Margin="72,494,0,0" VerticalAlignment="Top" Width="162" Height="32" Click="Button_Click"/>
+        <ui:Button Content="Download" Icon="ArrowDownload24" Margin="72,452,0,0" VerticalAlignment="Top" Width="162" Height="32" Click="Button_Click_1"/>
+
+
+
+    </Grid>
+</Page>

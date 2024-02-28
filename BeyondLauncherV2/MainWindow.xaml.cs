@@ -19,6 +19,7 @@ namespace BeyondLauncherV2
             if (Settings.Default.StartRPC)
                 RPC.StartRPC();
 
+            Globals.NavFrame = _NavigationFrame;
         }
 
         private void NavigationItem_Click(object sender, RoutedEventArgs e)
@@ -37,6 +38,11 @@ namespace BeyondLauncherV2
         private void NavigationItem_Click_1(object sender, RoutedEventArgs e)
         {
             _NavigationFrame.Navigate(new SettingsPage());
+        }
+
+        private void NavigationItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            _NavigationFrame.Navigate(new LibraryPage());
         }
     }
 }

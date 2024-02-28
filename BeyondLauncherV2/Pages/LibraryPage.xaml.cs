@@ -1,6 +1,4 @@
-﻿using BeyondLauncherV2.Properties;
-using BeyondLauncherV2.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,54 +13,17 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Wpf.Ui.Controls;
 
 namespace BeyondLauncherV2.Pages
 {
     /// <summary>
-    /// Interaction logic for SettingsPage.xaml
+    /// Interaction logic for LibraryPage.xaml
     /// </summary>
-    public partial class SettingsPage : Page
+    public partial class LibraryPage : Page
     {
-        public SettingsPage()
+        public LibraryPage()
         {
             InitializeComponent();
-           
-        }
-
-        private void RPCSwitch_Checked(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void RPCSwitch_Unchecked(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void RPCSwitch_Loaded(object sender, RoutedEventArgs e)
-        {
-            RPCSwitch.IsChecked = Settings.Default.StartRPC;
-        }
-
-        private void RPCSwitch_Click(object sender, RoutedEventArgs e)
-        {
-            if (RPCSwitch.IsChecked == true)
-            {
-                Settings.Default.StartRPC = true;
-                Settings.Default.Save();
-                RPC.StartRPC();
-            } else
-            {
-                Settings.Default.StartRPC = false;
-                Settings.Default.Save();
-
-                MessageBoxResult MsgResult = MessageBox.Show("Beyond has to restart in order to stop the rpc, would you like to restart?", "Info", MessageBoxButton.YesNo);
-
-                if (MsgResult == MessageBoxResult.Yes)
-                {
-                    SimpleUtils.Restart();
-                }
-            }
-           
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -86,6 +47,16 @@ namespace BeyondLauncherV2.Pages
 
             MainGrid.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
             translateTransform.BeginAnimation(TranslateTransform.XProperty, slideDownAnimation);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Downloading is disabled until a future update. Please use EasyInstallerV2 instead. (In #downloads)");
         }
     }
 }

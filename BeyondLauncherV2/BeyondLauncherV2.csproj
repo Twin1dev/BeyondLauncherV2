@@ -12,14 +12,12 @@
 
   <ItemGroup>
     <None Remove="background2-jv-1587767320993.png" />
+    <None Remove="Pages\travis-scott-fortnite_3279.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Images\background2-jv-1587767320993.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Fortnite\" />
+    <Resource Include="Images\travis-scott-fortnite_3279.png" />
   </ItemGroup>
 
   <ItemGroup>

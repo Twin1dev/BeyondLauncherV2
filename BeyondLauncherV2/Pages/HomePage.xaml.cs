@@ -21,6 +21,12 @@ namespace BeyondLauncherV2.Pages
         #region Events
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if ((string)button.Content == "Set Path")
+            {
+                Globals.NavFrame.Navigate(new LibraryPage());
+                return;
+            }
+
             ToastUtils.ShowToast("Launching Game..", "This may take a bit.");
 
             DependencyObject parent = VisualTreeHelper.GetParent(this);
@@ -39,11 +45,13 @@ namespace BeyondLauncherV2.Pages
             if (Settings.Default.StartRPC)
                 RPC.UpdateRPC("Launching Game", true);
 
+            
         }
 
         private void Page_Initialized(object sender, EventArgs e)
         {
-          
+            if (Settings.Default.Path == "")
+                button.Content = "Set Path"; button.Icon = Wpf.Ui.Common.SymbolRegular.Folder24;
         }
 
         private void button_MouseEnter(object sender, MouseEventArgs e)
@@ -106,8 +114,30 @@ namespace BeyondLauncherV2.Pages
         {
             SimpleUtils.OpenLink("https://beyond-shop.tebex.io");
         }
+
         #endregion
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation opacityAnimation = new DoubleAnimation
+            {
+                From = 0,
+                To = 1,
+                Duration = TimeSpan.FromSeconds(.5)
+            };
 
+            DoubleAnimation slideDownAnimation = new DoubleAnimation
+            {
+                From = -20,
+                To = 0,
+                Duration = TimeSpan.FromSeconds(.8)
+            };
+
+            TranslateTransform translateTransform = new TranslateTransform();
+            MainGrid.RenderTransform = translateTransform;
+
+            MainGrid.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
+            translateTransform.BeginAnimation(TranslateTransform.XProperty, slideDownAnimation);
+        }
     }
 }
