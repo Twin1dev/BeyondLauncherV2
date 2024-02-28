@@ -7,10 +7,56 @@
       xmlns:local="clr-namespace:BeyondLauncherV2.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="760" d:DesignWidth="1290"
-      Title="HomePage">
+      Title="HomePage" Initialized="Page_Initialized">
 
     <Grid>
-        <ui:Button FontSize="20px" FontFamily="Segoe UI Variable Small Semibold" Icon="Play24" Content="PLAY" HorizontalAlignment="Right" Margin="0,0,30,30" VerticalAlignment="Bottom" Height="52" Width="140"/>
-        
+        <ui:Button x:Name="button" FontSize="20px" FontFamily="Segoe UI Variable Small Semibold" CornerRadius="25" Icon="Play24" Content="PLAY" HorizontalAlignment="Right" Margin="0,0,40,38" VerticalAlignment="Bottom" Height="74" Width="175" Click="Button_Click" RenderTransformOrigin="0.5,0.5" MouseEnter="button_MouseEnter" MouseLeave="button_MouseLeave">
+
+            <ui:Button.Background>
+                <SolidColorBrush Color="#FF1E1E1E" Opacity="0.75"/>
+            </ui:Button.Background>
+            <ui:Button.MouseOverBackground>
+                <SolidColorBrush Color="#FF1E1E1E" Opacity="0.85"/>
+            </ui:Button.MouseOverBackground>
+
+
+        </ui:Button>
+        <ui:Button Content="" CornerRadius="20" Margin="0,34,0,0" VerticalAlignment="Top" Height="184" Width="1126" HorizontalAlignment="Center">
+            <ui:Button.Background>
+                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+            </ui:Button.Background>
+            <ui:Button.MouseOverBackground>
+                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+            </ui:Button.MouseOverBackground>
+            <ui:Button.PressedBackground>
+                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+            </ui:Button.PressedBackground>
+        </ui:Button>
+        <Label x:Name="HelloLabel" Content="Hello, Twin1" FontSize="50px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="118,50,0,0" VerticalAlignment="Top" Height="60" Width="1062"/>
+        <Label Content="Welcome to Beyond!" FontSize="15px" HorizontalAlignment="Left" Margin="124,120,0,0" VerticalAlignment="Top"/>
+        <ui:Button CornerRadius="20" FontSize="16px" FontFamily="Segoe UI Variable Small Semibold" Content="Donate" Icon="Heart28" Margin="82,242,0,0" VerticalAlignment="Top" Height="90" Width="563">
+            <ui:Button.Background>
+                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+            </ui:Button.Background>
+            <ui:Button.MouseOverBackground>
+                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+            </ui:Button.MouseOverBackground>
+            <ui:Button.PressedBackground>
+                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+            </ui:Button.PressedBackground>
+        </ui:Button>
+        <ui:Button CornerRadius="20" FontSize="17px" FontFamily="Segoe UI Variable Small Semibold" Icon="People24" Content="Join our Discord!" Margin="670,242,0,0" VerticalAlignment="Top" Height="90" Width="538">
+            <ui:Button.Background>
+                <SolidColorBrush Opacity="0.1" Color="Gray"/>
+            </ui:Button.Background>
+            <ui:Button.MouseOverBackground>
+                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+            </ui:Button.MouseOverBackground>
+            <ui:Button.PressedBackground>
+                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+            </ui:Button.PressedBackground>
+        </ui:Button>
+
+
     </Grid>
 </Page>

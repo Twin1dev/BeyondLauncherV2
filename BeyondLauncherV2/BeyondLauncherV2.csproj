@@ -2,57 +2,34 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>Beyond</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="background2-jv-1587767320993.png" />
-    <None Remove="Resources\Poppins-Black.ttf" />
-    <None Remove="Resources\Poppins-Bold.ttf" />
-    <None Remove="Resources\Poppins-Light.ttf" />
-    <None Remove="Resources\Poppins-Medium.ttf" />
-    <None Remove="Resources\Poppins-Regular.ttf" />
-    <None Remove="Resources\Poppins-SemiBold.ttf" />
-    <None Remove="Resources\Poppins-Thin.ttf" />
+    <None Remove="Pages\travis-scott-fortnite_3279.png" />
     <None Remove="travis-scott-fortnite_3279.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="background2-jv-1587767320993.png" />
-    <Resource Include="Resources\Poppins-Black.ttf">
+    <Resource Include="Pages\travis-scott-fortnite_3279.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="travis-scott-fortnite_3279.png" />
-    <EmbeddedResource Include="Resources\Poppins-Bold.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Poppins-Light.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Poppins-Medium.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Poppins-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Poppins-SemiBold.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Poppins-Thin.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Fortnite\" />
-    <Folder Include="Utilities\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
     <PackageReference Include="WPF-UI" Version="2.1.0" />
   </ItemGroup>
 
