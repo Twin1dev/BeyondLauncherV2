@@ -2,8 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BeyondLauncherV2"
+              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemesDictionary Theme="Dark" />
+                <ui:ControlsDictionary />
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="Poppins">pack://application:,,,/Resources/#Poppins</FontFamily>
+            <FontFamily x:Key="PoppinsBlack">pack://application:,,,/Fonts/#Poppins Black</FontFamily>
+            <FontFamily x:Key="PoppinsBold">pack://application:,,,/Fonts/#Poppins Bold</FontFamily>
+            <FontFamily x:Key="PoppinsLight">pack://application:,,,/Fonts/#Poppins Light</FontFamily>
+            <FontFamily x:Key="PoppinsMedium">pack://application:,,,/Fonts/#Poppins Medium</FontFamily>
+            <FontFamily x:Key="PoppinsRegular">pack://application:,,,/Fonts/#Poppins Regular</FontFamily>
+            <FontFamily x:Key="PoppinsSemibold">pack://application:,,,/Fonts/#Poppins SemiBold</FontFamily>
+            <FontFamily x:Key="PoppinsThin">pack://application:,,,/Fonts/#Poppins Thin</FontFamily>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

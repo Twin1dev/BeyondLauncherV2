@@ -1,5 +1,8 @@
-﻿using BeyondLauncherV2.Pages;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,21 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BeyondLauncherV2
+namespace BeyondLauncherV2.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class HomePage
     {
-        public MainWindow()
+        public HomePage()
         {
             InitializeComponent();
+
         }
 
-        private void NavigationItem_Click(object sender, RoutedEventArgs e)
-        {
-            _NavigationFrame.Navigate(new HomePage());
-        }
     }
 }
