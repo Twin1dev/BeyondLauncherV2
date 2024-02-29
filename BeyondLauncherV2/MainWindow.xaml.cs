@@ -14,7 +14,11 @@ namespace BeyondLauncherV2
         {
             InitializeComponent();
             LoggingSystem.OpenLog();
-            _NavigationFrame.Navigate(new HomePage());
+            
+            if (Settings.Default.Email == "")
+                _NavigationFrame.Navigate(new LoginPage());
+            else
+                _NavigationFrame.Navigate(new HomePage());
 
             if (Settings.Default.StartRPC)
                 RPC.StartRPC();

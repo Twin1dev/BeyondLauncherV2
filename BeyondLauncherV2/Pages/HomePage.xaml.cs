@@ -1,5 +1,6 @@
 ﻿using BeyondLauncherV2.Properties;
 using BeyondLauncherV2.Utilities;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,11 +17,28 @@ namespace BeyondLauncherV2.Pages
         public HomePage()
         {
             InitializeComponent();
+
+            if (Settings.Default.Email != "")
+            {
+                using (WebClient wc = new WebClient())
+                {
+                    string username = wc.DownloadString($"http://backend.beyondfn.xyz:8990/getUsernamebyemail/{Settings.Default.Email}");
+
+                    HelloLabel.Content = "Hello, " + username + "!";
+                }
+            }
+            else
+            {
+                Settings.Default.Save();
+                MessageBox.Show("Seems something really odd has happened with your launcher, please restart it.");
+            }
         }
 
         #region Events
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+          
+
             if ((string)button.Content == "Set Path")
             {
                 Globals.NavFrame.Navigate(new LibraryPage());

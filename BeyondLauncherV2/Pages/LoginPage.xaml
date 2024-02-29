@@ -1,0 +1,27 @@
+﻿<Page x:Class="BeyondLauncherV2.Pages.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:local="clr-namespace:BeyondLauncherV2.Pages"
+      mc:Ignorable="d" 
+       d:DesignHeight="760" d:DesignWidth="1290"
+      Title="LoginPage">
+
+    <Grid>
+        <ui:TextBox x:Name="Email" Margin="334,331,332,0" TextWrapping="Wrap" PlaceholderText="Email" Icon="Mail24" VerticalAlignment="Top"/>
+        <ui:PasswordBox x:Name="Password" Margin="334,379,332,0" TextWrapping="Wrap" PlaceholderText="Password" Icon="Key24" VerticalAlignment="Top"/>
+        <CheckBox x:Name="TosAccept" Content="By Clicking This You Accept The Beyond" Margin="336,434,0,0" VerticalAlignment="Top"/>
+        <ui:Flyout x:Name="tosflyout" Foreground="Red" Margin="0,760,0,0" VerticalAlignment="Top">You Must Accept The TOS before you continue.</ui:Flyout>
+        <ui:Hyperlink NavigateUri="https://www.youtube.com/"  Content="TOS" Margin="605,432,0,0" VerticalAlignment="Top" ContentStringFormat="">
+
+
+        </ui:Hyperlink>
+        <ui:Button FontSize="20px" Content="Login" Margin="0,577,0,0" VerticalAlignment="Top" Height="74" Width="234" Click="Button_Click" HorizontalAlignment="Center"/>
+        <Label Content="Login to Beyond" FontSize="50px" FontFamily="Segoe UI Bold" Foreground="White" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,140,0,0" VerticalAlignment="Top" Height="80" Width="624"/>
+        <Label FontSize="15px" FontFamily="Segoe UI" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" Height="80" Width="624">
+            <TextBlock>Not Registered? Go to <Run FontWeight="Bold">#register</Run> in the Discord</TextBlock></Label>
+
+    </Grid>
+</Page>
