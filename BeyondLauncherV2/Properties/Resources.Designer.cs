@@ -59,5 +59,25 @@ namespace BeyondLauncherV2.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Beyond_Client {
+            get {
+                object obj = ResourceManager.GetObject("Beyond_Client", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] EAC {
+            get {
+                object obj = ResourceManager.GetObject("EAC", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

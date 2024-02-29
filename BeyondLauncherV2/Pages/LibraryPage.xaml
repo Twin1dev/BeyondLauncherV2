@@ -57,7 +57,7 @@
             </ui:Button.PressedBackground>
         </ui:Button>
         <Label Content="12.41" FontSize="15px" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="72,421,0,0" VerticalAlignment="Top" Width="162"/>
-        <ui:Button Content="Locate" Icon="Folder24" Margin="72,494,0,0" VerticalAlignment="Top" Width="162" Height="32" Click="Button_Click"/>
+        <ui:Button x:Name="LocateButton1" Content="Locate" Icon="Folder24" Margin="72,494,0,0" VerticalAlignment="Top" Width="162" Height="32" Click="Button_Click"/>
         <ui:Button Content="Download" Icon="ArrowDownload24" Margin="72,452,0,0" VerticalAlignment="Top" Width="162" Height="32" Click="Button_Click_1"/>
 
 

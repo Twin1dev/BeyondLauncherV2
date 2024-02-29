@@ -1,11 +1,14 @@
-﻿using BeyondLauncherV2.Properties;
+﻿using BeyondLauncherV2.Fortnite;
+using BeyondLauncherV2.Properties;
 using BeyondLauncherV2.Utilities;
+using Microsoft.Win32;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using Wpf.Ui.Common;
 
 namespace BeyondLauncherV2.Pages
 {
@@ -45,6 +48,43 @@ namespace BeyondLauncherV2.Pages
                 return;
             }
 
+            string keyPath = "Software\\NovaFn";
+            var SubKey = Registry.CurrentUser.OpenSubKey(keyPath, true);
+
+            if (SubKey == null)
+            {
+                MessageBox.Show("Issue while launching. Try again in Admin");
+                Registry.CurrentUser.CreateSubKey(keyPath).Close();
+                return;
+            }
+
+            if ((string)button.Content == "CLOSE")
+            {
+                try
+                {
+                    SubKey.DeleteValue("accountId");
+                    SubKey.Close();
+                }
+                catch { }
+
+                SimpleUtils.SafeKillProcess("EpicGamesLauncher");
+                SimpleUtils.SafeKillProcess("EpicWebHelper");
+                SimpleUtils.SafeKillProcess("CrashReportClient");
+                SimpleUtils.SafeKillProcess("FortniteLauncher");
+                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
+                SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
+                button.Content = "PLAY";
+                button.Icon = SymbolRegular.Play24;
+                Thread.Sleep(1500);
+                SimpleUtils.SafeKillProcess("EpicGamesLauncher");
+                SimpleUtils.SafeKillProcess("EpicWebHelper");
+                SimpleUtils.SafeKillProcess("CrashReportClient");
+                SimpleUtils.SafeKillProcess("FortniteLauncher");
+                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
+                SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
+                return;
+            }
+
             ToastUtils.ShowToast("Launching Game..", "This may take a bit.");
 
             DependencyObject parent = VisualTreeHelper.GetParent(this);
@@ -63,13 +103,19 @@ namespace BeyondLauncherV2.Pages
             if (Settings.Default.StartRPC)
                 RPC.UpdateRPC("Launching Game", true);
 
-            
+            Launch.LaunchGame();
+
+            button.Content = "CLOSE";
+            button.Icon = SymbolRegular.ErrorCircle24;
         }
 
         private void Page_Initialized(object sender, EventArgs e)
         {
             if (Settings.Default.Path == "")
-                button.Content = "Set Path"; button.Icon = Wpf.Ui.Common.SymbolRegular.Folder24;
+            {
+                button.Content = "Set Path";
+                button.Icon = Wpf.Ui.Common.SymbolRegular.Folder24;
+            }
         }
 
         private void button_MouseEnter(object sender, MouseEventArgs e)

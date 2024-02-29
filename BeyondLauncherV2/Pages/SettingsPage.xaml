@@ -10,7 +10,7 @@
       Title="SettingsPage" Loaded="Page_Loaded">
 
     <Grid x:Name="MainGrid">
-        <ui:Button CornerRadius="50" Height="650" Width="880" Margin="32,0,0,60" VerticalAlignment="Bottom"/>
+        <ui:Button CornerRadius="50" Height="650" Width="880" Margin="32,0,0,60" VerticalAlignment="Bottom" MouseOverBackground="#0FFFFFFF" PressedBackground="#0FFFFFFF"/>
         <Label Content="Settings" FontSize="40px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="66,80,0,0" VerticalAlignment="Top" Height="73" Width="314"/>
         <ui:ToggleSwitch x:Name="RPCSwitch" IsChecked="True" FontSize="20px" Content="Enable RPC" Margin="66,153,0,0" VerticalAlignment="Top" Height="28" Width="157" Checked="RPCSwitch_Checked" Unchecked="RPCSwitch_Unchecked" Loaded="RPCSwitch_Loaded" Click="RPCSwitch_Click"/>
 

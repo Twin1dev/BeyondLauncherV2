@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BeyondLauncherV2.Properties;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,11 +50,47 @@ namespace BeyondLauncherV2.Pages
 
             MainGrid.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
             translateTransform.BeginAnimation(TranslateTransform.XProperty, slideDownAnimation);
+
+            if (Settings.Default.Path != "")
+            {
+                LocateButton1.Content = "Launch";
+                LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.Play24;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var button = (Wpf.Ui.Controls.Button)sender;
+            if (button.Content == "Launch")
+            {
+                Globals.NavFrame.Navigate(new HomePage());
+                return;
+            }
 
+            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            {
+                dialog.Multiselect = false;
+                dialog.Title = "Select your Fortnite Folder!";
+                dialog.IsFolderPicker = true;
+                dialog.EnsurePathExists = true;
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    if (!Directory.Exists(dialog.FileName + "\\FortniteGame"))
+                    {
+                        System.Windows.MessageBox.Show("This path does not have fortnite!");
+                        return;
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.Path = dialog.FileName;
+                        Properties.Settings.Default.Save();
+                    }
+                }
+            }
+
+            
+            button.Content = "Launch";
+            button.Icon = Wpf.Ui.Common.SymbolRegular.Play24;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
