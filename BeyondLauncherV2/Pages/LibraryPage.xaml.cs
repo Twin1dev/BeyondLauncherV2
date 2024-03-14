@@ -6,15 +6,11 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Diagnostics;
-using System.Security.Cryptography;
 using BeyondLauncherV2.Utilities;
 using Wpf.Ui.Common;
 
 namespace BeyondLauncherV2.Pages
 {
-    /// <summary>
-    /// Interaction logic for LibraryPage.xaml
-    /// </summary>
     public partial class LibraryPage : Page
     {
         public LibraryPage()

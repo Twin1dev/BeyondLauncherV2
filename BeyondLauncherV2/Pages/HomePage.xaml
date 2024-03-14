@@ -61,7 +61,7 @@
         </ui:Button>
         <Label x:Name="HelloLabel" Content="Hello, Twin1" FontSize="50px" FontFamily="Segoe UI Variable Text Semibold" HorizontalAlignment="Left" Margin="118,50,0,0" VerticalAlignment="Top" Height="70" Width="1062" FontWeight="Bold"/>
         <Label Content="Welcome to Beyond!" FontSize="15px" HorizontalAlignment="Left" Margin="124,120,0,0" VerticalAlignment="Top"/>
-        <ui:Button x:Name="DonateButton" CornerRadius="20" FontSize="16px" FontFamily="Segoe UI Variable Small Semibold" Content="Donate" Icon="Heart28" Margin="82,242,0,0" VerticalAlignment="Top" Height="90" Width="563" Click="DonateButton_Click">
+        <ui:Button MouseLeave="DonateButton_MouseLeave" MouseEnter="DonateButton_MouseEnter" x:Name="DonateButton" CornerRadius="20" FontSize="16px" FontFamily="Segoe UI Variable Small Semibold" Content="Donate" Icon="Heart28" Margin="82,242,0,0" VerticalAlignment="Top" Height="90" Width="563" Click="DonateButton_Click">
             <ui:Button.Background>
                 <SolidColorBrush Color="Gray" Opacity="0.1"/>
             </ui:Button.Background>
@@ -72,7 +72,7 @@
                 <SolidColorBrush Color="Gray" Opacity="0.1"/>
             </ui:Button.PressedBackground>
         </ui:Button>
-        <ui:Button CornerRadius="20" FontSize="17px" FontFamily="Segoe UI Variable Small Semibold" Icon="People24" Content="Join our Discord!" Margin="670,242,0,0" VerticalAlignment="Top" Height="90" Width="538" Click="Button_Click_1">
+        <ui:Button x:Name="DiscordButton" CornerRadius="20" FontSize="17px" FontFamily="Segoe UI Variable Small Semibold" Icon="People24" Content="Join our Discord!" Margin="670,242,0,0" VerticalAlignment="Top" Height="90" Width="538" Click="Button_Click_1" MouseEnter="Discord_MouseEnter" MouseLeave="Discord_MouseLeave">
             <ui:Button.Background>
                 <SolidColorBrush Opacity="0.1" Color="Gray"/>
             </ui:Button.Background>

@@ -57,6 +57,6 @@
             <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden" Content="" DockPanel.Dock="Right" Width="1290" Navigating="_NavigationFrame_Navigating"/>
 
         </DockPanel>
-        <ui:Button x:Name="AvatarButton" CornerRadius="150" Content="" Margin="11,21,0,0" VerticalAlignment="Top" Width="45" Height="45" MouseEnter="AvatarButton_MouseEnter" Appearance="Transparent" MouseOverBackground="{x:Null}"/>
+        <ui:Button x:Name="AvatarButton" CornerRadius="150" Content="" Margin="11,21,0,0" VerticalAlignment="Top" Width="45" Height="45" Appearance="Transparent" MouseOverBackground="{x:Null}"/>
     </Grid>
 </Window>

@@ -13,9 +13,6 @@ using System.Diagnostics;
 
 namespace BeyondLauncherV2.Pages
 {
-    /// <summary>
-    /// Interaction logic for HomePage.xaml
-    /// </summary>
     public partial class HomePage
     {
         public HomePage()
@@ -246,7 +243,7 @@ namespace BeyondLauncherV2.Pages
 
         private void DonateButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            DonateButton.FontSize = 24;
+            DonateButton.FontSize = 18;
         }
 
         private void DonateButton_MouseLeave(object sender, MouseEventArgs e)
@@ -256,7 +253,7 @@ namespace BeyondLauncherV2.Pages
 
         private void Discord_MouseEnter(object sender, MouseEventArgs e)
         {
-            DiscordButton.FontSize = 24;
+            DiscordButton.FontSize = 18;
         }
 
         private void Discord_MouseLeave(object sender, MouseEventArgs e)

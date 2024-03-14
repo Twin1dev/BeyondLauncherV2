@@ -8,9 +8,6 @@ using System.Windows.Media.Imaging;
 
 namespace BeyondLauncherV2
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public static ImageBrush imgBrush = new ImageBrush();
@@ -87,11 +84,6 @@ namespace BeyondLauncherV2
                     AvatarButton.Visibility = Visibility.Visible;
                 }
             }
-        }
-
-        private void AvatarButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-           
         }
     }
 }
