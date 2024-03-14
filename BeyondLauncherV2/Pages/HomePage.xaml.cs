@@ -73,6 +73,7 @@ namespace BeyondLauncherV2.Pages
                 SimpleUtils.SafeKillProcess("FortniteLauncher");
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                 SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
+                SimpleUtils.SafeKillProcess("Beyond");
                 button.Content = "PLAY";
                 button.Icon = SymbolRegular.Play24;
                 Thread.Sleep(1500);
@@ -82,6 +83,7 @@ namespace BeyondLauncherV2.Pages
                 SimpleUtils.SafeKillProcess("FortniteLauncher");
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                 SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
+                SimpleUtils.SafeKillProcess("Beyond");
                 return;
             }
 
@@ -103,6 +105,13 @@ namespace BeyondLauncherV2.Pages
             if (Settings.Default.StartRPC)
                 RPC.UpdateRPC("Launching Game", true);
 
+            SimpleUtils.SafeKillProcess("EpicGamesLauncher");
+            SimpleUtils.SafeKillProcess("EpicWebHelper");
+            SimpleUtils.SafeKillProcess("CrashReportClient");
+            SimpleUtils.SafeKillProcess("FortniteLauncher");
+            SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
+            SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
+            SimpleUtils.SafeKillProcess("Beyond");
             Launch.LaunchGame();
 
             button.Content = "CLOSE";
@@ -202,6 +211,8 @@ namespace BeyondLauncherV2.Pages
 
             MainGrid.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
             translateTransform.BeginAnimation(TranslateTransform.XProperty, slideDownAnimation);
+
+
         }
     }
 }

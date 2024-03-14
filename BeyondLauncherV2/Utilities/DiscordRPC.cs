@@ -10,7 +10,7 @@ namespace BeyondLauncherV2.Utilities
 {
     internal class RPC
     {
-        private static DiscordRpcClient? client;
+        public static DiscordRpcClient? client;
 
         public static void StartRPC()
         {

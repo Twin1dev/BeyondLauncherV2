@@ -30,4 +30,6 @@ namespace BeyondLauncherV2.Fortnite
             return "";
         }
     }
+
+
 }

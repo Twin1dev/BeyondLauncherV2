@@ -43,7 +43,8 @@ namespace BeyondLauncherV2.Pages
 
                 if (res != "yay")
                 {
-                    MessageBox.Show("Invalid Email or Password!");
+                    tosflyout.Content = "Email/Password is Incorrect!";
+                    tosflyout.Show();
                 }
                 else
                 {

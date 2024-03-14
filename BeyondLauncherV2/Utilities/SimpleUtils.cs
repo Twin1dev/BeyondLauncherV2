@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace BeyondLauncherV2.Utilities
@@ -30,6 +24,14 @@ namespace BeyondLauncherV2.Utilities
             catch
             {
             }
+        }
+
+        private readonly static string[] skinlinks = ["https://fortnite-api.com/images/cosmetics/br/cid_a_406_athena_commando_m_rebirthfresh/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_701_Athena_Commando_M_BananaAgent/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_703_Athena_Commando_M_Cyclone/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_691_Athena_Commando_F_TNTina/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_694_Athena_Commando_M_CatBurglar/icon.png"];
+
+        public static string GetRandomSkinLink()
+        {
+            Random rnd = new();
+            return skinlinks[rnd.Next(0, skinlinks.Length)];
         }
 
         public static void Restart()

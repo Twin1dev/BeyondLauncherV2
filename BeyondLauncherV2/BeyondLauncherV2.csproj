@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <PlatformTarget>x64</PlatformTarget>
-    <AssemblyName>Beyond</AssemblyName>
+    <AssemblyName>Beyond Launcher</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

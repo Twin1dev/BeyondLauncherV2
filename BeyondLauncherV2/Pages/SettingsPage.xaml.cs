@@ -87,5 +87,18 @@ namespace BeyondLauncherV2.Pages
             MainGrid.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
             translateTransform.BeginAnimation(TranslateTransform.XProperty, slideDownAnimation);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        { 
+            MessageBoxResult MsgResult = MessageBox.Show("Beyond has to restart in order to logout, would you like to restart?", "Info", MessageBoxButton.YesNo);
+
+            if (MsgResult == MessageBoxResult.Yes)
+            {
+                Settings.Default.Reset();
+                Settings.Default.Save();
+
+                SimpleUtils.Restart();
+            }
+        }
     }
 }

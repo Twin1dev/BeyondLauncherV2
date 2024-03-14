@@ -15,14 +15,14 @@
     </WindowChrome.WindowChrome>
 
     <Grid>
-        
+
         <Grid.Background>
             <ImageBrush ImageSource="/Images/background2-jv-1587767320993.png" Stretch="UniformToFill"/>
         </Grid.Background>
 
         <ui:TitleBar Title="{Binding ViewModel.ApplicationTitle}" ShowMaximize="False" Panel.ZIndex="1" SnapsToDevicePixels="True" Height="33" VerticalAlignment="Top"></ui:TitleBar>
-       
-        <Frame Width="65" HorizontalAlignment="Left" Margin="0,4,0,0">
+
+        <Frame x:Name="FrameForTheGang"  Width="65" HorizontalAlignment="Left" Margin="0,4,0,0">
             <Frame.Background>
                 <SolidColorBrush Color="Black" Opacity="0.40"/>
             </Frame.Background>
@@ -56,9 +56,9 @@
         </ui:NavigationStore>
 
         <DockPanel LastChildFill="False" Margin="65,4,0,6">
-            <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden" Content="" DockPanel.Dock="Right" Width="1290"/>
+            <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden" Content="" DockPanel.Dock="Right" Width="1290" Navigating="_NavigationFrame_Navigating"/>
 
         </DockPanel>
-        <ui:Button CornerRadius="150" Content="" Margin="11,21,0,0" VerticalAlignment="Top" Width="45" Height="45"/>
+        <ui:Button x:Name="AvatarButton" CornerRadius="150" Content="" Margin="11,21,0,0" VerticalAlignment="Top" Width="45" Height="45" MouseEnter="AvatarButton_MouseEnter" Appearance="Transparent" MouseOverBackground="{x:Null}"/>
     </Grid>
 </Window>
