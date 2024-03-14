@@ -14,11 +14,9 @@
         <WindowChrome CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
 
-    <Grid>
+    <Grid Background="#FF141414">
 
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/background2-jv-1587767320993.png" Stretch="UniformToFill"/>
-        </Grid.Background>
+       
 
         <ui:TitleBar Title="{Binding ViewModel.ApplicationTitle}" ShowMaximize="False" Panel.ZIndex="1" SnapsToDevicePixels="True" Height="33" VerticalAlignment="Top"></ui:TitleBar>
 

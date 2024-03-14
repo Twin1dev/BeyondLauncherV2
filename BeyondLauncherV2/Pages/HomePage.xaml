@@ -23,13 +23,40 @@
         </ui:Button>
         <ui:Button Content="" CornerRadius="20" Margin="0,34,0,0" VerticalAlignment="Top" Height="184" Width="1126" HorizontalAlignment="Center">
             <ui:Button.Background>
-                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+                <ImageBrush ImageSource="/Images/background2-jv-1587767320993.png" Stretch="Fill" TileMode="None">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.19" CenterX="1" ScaleX="1" ScaleY="3"/>
+                            <SkewTransform CenterX="1" CenterY="0.19"/>
+                            <RotateTransform CenterX="1" CenterY="0.19"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
             </ui:Button.Background>
             <ui:Button.MouseOverBackground>
-                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+                <ImageBrush ImageSource="/Images/background2-jv-1587767320993.png" Stretch="Fill" TileMode="None">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.19" CenterX="1" ScaleX="1" ScaleY="3"/>
+                            <SkewTransform CenterX="1" CenterY="0.19"/>
+                            <RotateTransform CenterX="1" CenterY="0.19"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
             </ui:Button.MouseOverBackground>
             <ui:Button.PressedBackground>
-                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+                <ImageBrush ImageSource="/Images/background2-jv-1587767320993.png" Stretch="Fill" TileMode="None">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.19" CenterX="1" ScaleX="1" ScaleY="3"/>
+                            <SkewTransform CenterX="1" CenterY="0.19"/>
+                            <RotateTransform CenterX="1" CenterY="0.19"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
             </ui:Button.PressedBackground>
         </ui:Button>
         <Label x:Name="HelloLabel" Content="Hello, Twin1" FontSize="50px" FontFamily="Segoe UI Variable Text Semibold" HorizontalAlignment="Left" Margin="118,50,0,0" VerticalAlignment="Top" Height="70" Width="1062" FontWeight="Bold"/>
