@@ -15,7 +15,6 @@
     </WindowChrome.WindowChrome>
 
     <Grid>
-
         <Grid.Background>
             <ImageBrush ImageSource="/Images/background2-jv-1587767320993.png" Stretch="UniformToFill"/>
         </Grid.Background>
@@ -35,10 +34,11 @@
             <ui:NavigationStore.Items>
 
                 <ui:NavigationItem
-          Content="Home"
-          Icon="Home24"
-          PageType="{x:Type Page}"
-          PageTag="dashboard" Click="NavigationItem_Click" />
+                  Content="Home"
+                  Icon="Home24"
+                  Margin="0,0,0,0"
+                  PageType="{x:Type Page}"
+                  PageTag="dashboard" Click="NavigationItem_Click" VerticalAlignment="Top" />
                 <ui:NavigationItem
          
          Content="Library"
@@ -59,6 +59,6 @@
             <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden" Content="" DockPanel.Dock="Right" Width="1290" Navigating="_NavigationFrame_Navigating"/>
 
         </DockPanel>
-        <ui:Button x:Name="AvatarButton" CornerRadius="150" Content="" Margin="11,21,0,0" VerticalAlignment="Top" Width="45" Height="45" MouseEnter="AvatarButton_MouseEnter" Appearance="Transparent" MouseOverBackground="{x:Null}"/>
+        <ui:Button x:Name="AvatarButton" IsHitTestVisible="False" CornerRadius="150" Content="" Margin="11,21,0,0" VerticalAlignment="Top" Width="45" Height="45" MouseEnter="AvatarButton_MouseEnter" Appearance="Transparent" MouseOverBackground="{x:Null}"/>
     </Grid>
 </Window>

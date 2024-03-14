@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Wpf.Ui.Common;
+using System.Diagnostics;
 
 namespace BeyondLauncherV2.Pages
 {
@@ -58,7 +59,7 @@ namespace BeyondLauncherV2.Pages
                 return;
             }
 
-            if ((string)button.Content == "CLOSE")
+            if ((string)button.Content == "Close")
             {
                 try
                 {
@@ -71,16 +72,18 @@ namespace BeyondLauncherV2.Pages
                 SimpleUtils.SafeKillProcess("EpicWebHelper");
                 SimpleUtils.SafeKillProcess("CrashReportClient");
                 SimpleUtils.SafeKillProcess("FortniteLauncher");
+                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                 SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
                 SimpleUtils.SafeKillProcess("Beyond");
-                button.Content = "PLAY";
+                button.Content = "Launch";
                 button.Icon = SymbolRegular.Play24;
                 Thread.Sleep(1500);
                 SimpleUtils.SafeKillProcess("EpicGamesLauncher");
                 SimpleUtils.SafeKillProcess("EpicWebHelper");
                 SimpleUtils.SafeKillProcess("CrashReportClient");
                 SimpleUtils.SafeKillProcess("FortniteLauncher");
+                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                 SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
                 SimpleUtils.SafeKillProcess("Beyond");
@@ -114,7 +117,7 @@ namespace BeyondLauncherV2.Pages
             SimpleUtils.SafeKillProcess("Beyond");
             Launch.LaunchGame();
 
-            button.Content = "CLOSE";
+            button.Content = "Close";
             button.Icon = SymbolRegular.ErrorCircle24;
         }
 
@@ -124,6 +127,31 @@ namespace BeyondLauncherV2.Pages
             {
                 button.Content = "Set Path";
                 button.Icon = Wpf.Ui.Common.SymbolRegular.Folder24;
+            }
+
+            string[] processesToCheck = { "EasyAntiCheat_EOS", "Beyond", "FortniteClient-Win64-Shipping", "FortniteLauncher", "FortniteClient-Win64-Shipping_BE" };
+
+            bool anyProcessRunning = false;
+
+            foreach (string processName in processesToCheck)
+            {
+                Process[] processes = Process.GetProcessesByName(processName);
+                if (processes.Length > 0)
+                {
+                    anyProcessRunning = true;
+                    break;
+                }
+            }
+
+            if (anyProcessRunning)
+            {
+                button.Content = "Close";
+                button.Icon = Wpf.Ui.Common.SymbolRegular.ErrorCircle24;
+            }
+            else
+            {
+                button.Content = "Launch";
+                button.Icon = Wpf.Ui.Common.SymbolRegular.Play24;
             }
         }
 
@@ -192,6 +220,7 @@ namespace BeyondLauncherV2.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+
             DoubleAnimation opacityAnimation = new DoubleAnimation
             {
                 From = 0,
@@ -212,7 +241,28 @@ namespace BeyondLauncherV2.Pages
             MainGrid.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
             translateTransform.BeginAnimation(TranslateTransform.XProperty, slideDownAnimation);
 
-
         }
+
+
+        private void DonateButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            DonateButton.FontSize = 24;
+        }
+
+        private void DonateButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            DonateButton.FontSize = 16;
+        }
+
+        private void Discord_MouseEnter(object sender, MouseEventArgs e)
+        {
+            DiscordButton.FontSize = 24;
+        }
+
+        private void Discord_MouseLeave(object sender, MouseEventArgs e)
+        {
+            DiscordButton.FontSize = 16;
+        }
+
     }
 }

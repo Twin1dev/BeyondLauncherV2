@@ -33,10 +33,11 @@
             </ui:Button.PressedBackground>
         </ui:Button>
         <Label x:Name="HelloLabel" Content="Hello, Twin1" FontSize="50px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="118,50,0,0" VerticalAlignment="Top" Height="70" Width="1062"/>
+
         <Label Content="Welcome to Beyond!" FontSize="15px" HorizontalAlignment="Left" Margin="124,120,0,0" VerticalAlignment="Top"/>
-        <ui:Button x:Name="DonateButton" CornerRadius="20" FontSize="16px" FontFamily="Segoe UI Variable Small Semibold" Content="Donate" Icon="Heart28" Margin="82,242,0,0" VerticalAlignment="Top" Height="90" Width="563" Click="DonateButton_Click">
+        <ui:Button x:Name="DonateButton" CornerRadius="20" FontSize="16px" FontFamily="Segoe UI Variable Small Semibold" Content="Donate" Icon="Heart28" Margin="82,242,0,0" VerticalAlignment="Top" Height="90" Width="563" Click="DonateButton_Click" MouseEnter="DonateButton_MouseEnter" MouseLeave="DonateButton_MouseLeave">
             <ui:Button.Background>
-                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+                <SolidColorBrush x:Name="ButtonBackground" Color="Gray" Opacity="0.1"/>
             </ui:Button.Background>
             <ui:Button.MouseOverBackground>
                 <SolidColorBrush Color="Gray" Opacity="0.1"/>
@@ -45,7 +46,7 @@
                 <SolidColorBrush Color="Gray" Opacity="0.1"/>
             </ui:Button.PressedBackground>
         </ui:Button>
-        <ui:Button CornerRadius="20" FontSize="17px" FontFamily="Segoe UI Variable Small Semibold" Icon="People24" Content="Join our Discord!" Margin="670,242,0,0" VerticalAlignment="Top" Height="90" Width="538" Click="Button_Click_1">
+        <ui:Button x:Name="DiscordButton" CornerRadius="20" FontSize="17px" FontFamily="Segoe UI Variable Small Semibold" Icon="People24" Content="Join our Discord!" Margin="670,242,0,0" VerticalAlignment="Top" Height="90" Width="538" Click="Button_Click_1" MouseEnter="Discord_MouseEnter" MouseLeave="Discord_MouseLeave">
             <ui:Button.Background>
                 <SolidColorBrush Opacity="0.1" Color="Gray"/>
             </ui:Button.Background>

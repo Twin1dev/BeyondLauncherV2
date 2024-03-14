@@ -1,21 +1,14 @@
 ﻿using BeyondLauncherV2.Properties;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Diagnostics;
+using System.Security.Cryptography;
+using BeyondLauncherV2.Utilities;
+using Wpf.Ui.Common;
 
 namespace BeyondLauncherV2.Pages
 {
@@ -53,46 +46,98 @@ namespace BeyondLauncherV2.Pages
 
             if (Settings.Default.Path != "")
             {
-                LocateButton1.Content = "Launch";
-                LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.Play24;
+                string[] processesToCheck = { "EasyAntiCheat_EOS", "FortniteClient-Win64-Shipping", "FortniteLauncher", "FortniteClient-Win64-Shipping_BE" };
+
+                bool anyProcessRunning = false;
+
+                foreach (string processName in processesToCheck)
+                {
+                    Process[] processes = Process.GetProcessesByName(processName);
+                    if (processes.Length > 0)
+                    {
+                        anyProcessRunning = true;
+                        break;
+                    }
+                }
+
+                if (anyProcessRunning)
+                {
+                    LocateButton1.Content = "Close";
+                    LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.ErrorCircle24;
+
+                }
+                else
+                {
+                    LocateButton1.Content = "Launch";
+                    LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.Play24;
+                }
             }
+            else
+            {
+                LocateButton1.Content = "Select Path";
+                LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.Folder24;
+            }
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var button = (Wpf.Ui.Controls.Button)sender;
-            if (button.Content == "Launch")
+            if (button.Content.ToString() == "Launch")
             {
                 Globals.NavFrame.Navigate(new HomePage());
                 return;
             }
-
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            else if (button.Content.ToString() == "Close")
             {
-                dialog.Multiselect = false;
-                dialog.Title = "Select your Fortnite Folder!";
-                dialog.IsFolderPicker = true;
-                dialog.EnsurePathExists = true;
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+
+                SimpleUtils.SafeKillProcess("EpicGamesLauncher");
+                SimpleUtils.SafeKillProcess("EpicWebHelper");
+                SimpleUtils.SafeKillProcess("CrashReportClient");
+                SimpleUtils.SafeKillProcess("FortniteLauncher");
+                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
+                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
+                SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
+                SimpleUtils.SafeKillProcess("Beyond");
+                button.Content = "Launch";
+                button.Icon = SymbolRegular.Play24;
+                Thread.Sleep(1500);
+                SimpleUtils.SafeKillProcess("EpicGamesLauncher");
+                SimpleUtils.SafeKillProcess("EpicWebHelper");
+                SimpleUtils.SafeKillProcess("CrashReportClient");
+                SimpleUtils.SafeKillProcess("FortniteLauncher");
+                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
+                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
+                SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
+                SimpleUtils.SafeKillProcess("Beyond");
+                return;
+            }
+            else if (button.Content.ToString() == "Select Path") 
+            {
+                using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
                 {
-                    if (!Directory.Exists(dialog.FileName + "\\FortniteGame"))
+                    dialog.Multiselect = false;
+                    dialog.Title = "Select your Fortnite Folder!";
+                    dialog.IsFolderPicker = true;
+                    dialog.EnsurePathExists = true;
+                    if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                     {
-                        System.Windows.MessageBox.Show("This path does not have fortnite!");
-                        return;
-                    }
-                    else
-                    {
-                        Properties.Settings.Default.Path = dialog.FileName;
-                        Properties.Settings.Default.Save();
+                        if (!Directory.Exists(dialog.FileName + "\\FortniteGame"))
+                        {
+                            System.Windows.MessageBox.Show("This path does not have Fortnite!");
+                            return;
+                        }
+                        else
+                        {
+                            Properties.Settings.Default.Path = dialog.FileName;
+                            Properties.Settings.Default.Save();
+                        }
                     }
                 }
             }
-
-            
-            button.Content = "Launch";
-            button.Icon = Wpf.Ui.Common.SymbolRegular.Play24;
         }
-
+ 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Downloading is disabled until a future update. Please use EasyInstallerV2 instead. (In #downloads)");
