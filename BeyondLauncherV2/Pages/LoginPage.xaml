@@ -10,18 +10,19 @@
       Title="LoginPage">
 
     <Grid>
-        <ui:TextBox x:Name="Email" Margin="334,331,332,0" TextWrapping="Wrap" PlaceholderText="Email" Icon="Mail24" VerticalAlignment="Top"/>
-        <ui:PasswordBox x:Name="Password" Margin="334,379,332,0" TextWrapping="Wrap" PlaceholderText="Password" Icon="Key24" VerticalAlignment="Top"/>
-        <CheckBox x:Name="TosAccept" Content="By Clicking This You Accept The Beyond" Margin="336,434,0,0" VerticalAlignment="Top"/>
+        <ui:TextBox x:Name="Email" Margin="303,339,363,0" TextWrapping="Wrap" PlaceholderText="Email" Icon="Mail24" VerticalAlignment="Top"/>
+        <ui:PasswordBox x:Name="Password" Margin="303,391,363,0" TextWrapping="Wrap" PlaceholderText="Password" Icon="Key24" VerticalAlignment="Top"/>
+        <CheckBox x:Name="TosAccept" Content="By Clicking This You Accept The Beyond" Margin="303,434,0,0" VerticalAlignment="Top"/>
         <ui:Flyout x:Name="tosflyout" Foreground="Red" Margin="0,760,0,0" VerticalAlignment="Top">You Must Accept The TOS before you continue.</ui:Flyout>
-        <ui:Hyperlink NavigateUri="https://tos.beyondfn.xyz/"  Content="TOS" Margin="604,430.5,0,0" VerticalAlignment="Top" ContentStringFormat="">
+        <ui:Hyperlink NavigateUri="https://tos.beyondfn.xyz/"  Content="TOS" Margin="568,431,0,0" VerticalAlignment="Top" ContentStringFormat="">
 
 
         </ui:Hyperlink>
-        <ui:Button Icon="Play24" CornerRadius="10" FontSize="20px" Content="Login" Margin="0,577,0,0" VerticalAlignment="Top" Height="74" Width="234" Click="Button_Click" HorizontalAlignment="Center" Background="#3F000000" MouseOverBackground="#3F000000" PressedBackground="#3F000000"/>
-        <Label Content="Login to Beyond" FontSize="50px" FontFamily="Segoe UI Bold" Foreground="White" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,140,0,0" VerticalAlignment="Top" Height="80" Width="624"/>
-        <Label FontSize="15px" FontFamily="Segoe UI" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" Height="80" Width="624">
-            <TextBlock>Not Registered? Go to <Run FontWeight="Bold">#register</Run> in the Discord</TextBlock></Label>
+        <ui:Button Icon="Play24" CornerRadius="10" FontSize="20px" Content="Login" Margin="498,576,0,0" VerticalAlignment="Top" Height="74" Width="234" Click="Button_Click" Background="#3F000000" MouseOverBackground="#3F000000" PressedBackground="#3F000000"/>
+        <Label Content="Login to Beyond" FontSize="50px" FontFamily="Segoe UI Bold" Foreground="White" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="-60,140,0,0" VerticalAlignment="Top" Height="80" Width="624"/>
+        <Label FontSize="15px" FontFamily="Segoe UI" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="303,220,0,0" VerticalAlignment="Top" Height="80" Width="624">
+            <TextBlock>Not Registered? Go to <Run FontWeight="Bold">#register</Run> in the Discord</TextBlock>
+        </Label>
 
     </Grid>
 </Page>

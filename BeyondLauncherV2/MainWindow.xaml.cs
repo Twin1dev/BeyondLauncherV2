@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace BeyondLauncherV2
 {
+
     public partial class MainWindow : Window
     {
         public static ImageBrush imgBrush = new ImageBrush();
@@ -61,6 +62,7 @@ namespace BeyondLauncherV2
                 RPC.StopRPC();
             } catch { } 
         }
+
 
         private void NavigationItem_Click_1(object sender, RoutedEventArgs e)
         {

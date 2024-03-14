@@ -128,6 +128,10 @@ namespace BeyondLauncherV2.Pages
                         {
                             Properties.Settings.Default.Path = dialog.FileName;
                             Properties.Settings.Default.Save();
+                            LocateButton1.Content = "Launch";
+                            button.Icon = SymbolRegular.Play24;
+
+
                         }
                     }
                 }
