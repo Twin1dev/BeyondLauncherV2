@@ -89,6 +89,12 @@ namespace BeyondLauncherV2.Fortnite
                     File.Delete(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll");
                 }
 
+                string pak;
+                if (Anticheat.Scan(out pak))
+                {
+                    MessageBox.Show($"Cheating Detected! Pak Detected: {pak}");
+                }
+
                 EAC.InitEAC();
 
                 LoggingSystem.WriteToLog("Opening EOS_Setup");
