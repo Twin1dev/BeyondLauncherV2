@@ -243,22 +243,58 @@ namespace BeyondLauncherV2.Pages
 
         private void DonateButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            DonateButton.FontSize = 18;
+            if (sender is Button button)
+            {
+                DoubleAnimation opacityAnimation = new DoubleAnimation
+                {
+                    To = 1,
+                    Duration = TimeSpan.FromSeconds(0.2),
+                };
+
+                button.BeginAnimation(Button.OpacityProperty, opacityAnimation);
+            }
         }
 
         private void DonateButton_MouseLeave(object sender, MouseEventArgs e)
         {
-            DonateButton.FontSize = 16;
+            if (sender is Button button)
+            {
+                DoubleAnimation opacityAnimation = new DoubleAnimation
+                {
+                    To = 0.75,
+                    Duration = TimeSpan.FromSeconds(0.2),
+                };
+
+                button.BeginAnimation(Button.OpacityProperty, opacityAnimation);
+            }
         }
 
         private void Discord_MouseEnter(object sender, MouseEventArgs e)
         {
-            DiscordButton.FontSize = 18;
+            if (sender is Button button)
+            {
+                DoubleAnimation opacityAnimation = new DoubleAnimation
+                {
+                    To = 1,
+                    Duration = TimeSpan.FromSeconds(0.2),
+                };
+
+                button.BeginAnimation(Button.OpacityProperty, opacityAnimation);
+            }
         }
 
         private void Discord_MouseLeave(object sender, MouseEventArgs e)
         {
-            DiscordButton.FontSize = 16;
+            if (sender is Button button)
+            {
+                DoubleAnimation opacityAnimation = new DoubleAnimation
+                {
+                    To = 0.75,
+                    Duration = TimeSpan.FromSeconds(0.2),
+                };
+
+                button.BeginAnimation(Button.OpacityProperty, opacityAnimation);
+            }
         }
 
     }
