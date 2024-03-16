@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shell;
 
 namespace BeyondLauncherV2
 {
@@ -17,7 +18,7 @@ namespace BeyondLauncherV2
             InitializeComponent();
             LoggingSystem.OpenLog();
             
-            if (Settings.Default.Email == "")
+            if (Settings.Default.Email == "" || Settings.Default.Password == "")
             {
                 _NavigationFrame.Navigate(new LoginPage());
 
@@ -41,37 +42,45 @@ namespace BeyondLauncherV2
 
         private void NavigationItem_Click(object sender, RoutedEventArgs e)
         {
-            _NavigationFrame.Navigate(new HomePage());
-
-            try
+            if (!(_NavigationFrame.Content is HomePage))
             {
-                ImageBrush imageBrush = new ImageBrush();
-                imageBrush.ImageSource = new BitmapImage(new Uri(RPC.client.CurrentUser.GetAvatarURL(DiscordRPC.User.AvatarFormat.PNG)));
+                _NavigationFrame.Navigate(new HomePage());
 
-                AvatarButton.Background = imageBrush;
-            }
-            catch {
-                
+                try
+                {
+                    ImageBrush imageBrush = new ImageBrush();
+                    imageBrush.ImageSource = new BitmapImage(new Uri(RPC.client.CurrentUser.GetAvatarURL(DiscordRPC.User.AvatarFormat.PNG)));
+
+                    AvatarButton.Background = imageBrush;
+                }
+                catch { }
             }
         }
+
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
             {
-                RPC.StopRPC();
+              RPC.StopRPC();
             } catch { } 
         }
 
 
         private void NavigationItem_Click_1(object sender, RoutedEventArgs e)
         {
-            _NavigationFrame.Navigate(new SettingsPage());
+            if (!(_NavigationFrame.Content is SettingsPage))
+            {
+                _NavigationFrame.Navigate(new SettingsPage());
+            }
         }
 
         private void NavigationItem_Click_2(object sender, RoutedEventArgs e)
         {
-            _NavigationFrame.Navigate(new LibraryPage());
+            if (!(_NavigationFrame.Content is LibraryPage))
+            {
+                _NavigationFrame.Navigate(new LibraryPage());
+            }
         }
 
         private void _NavigationFrame_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
