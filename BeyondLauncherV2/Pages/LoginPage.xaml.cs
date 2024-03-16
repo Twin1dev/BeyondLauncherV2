@@ -38,9 +38,14 @@ namespace BeyondLauncherV2.Pages
             {
                 string res = wc.DownloadString($"http://backend.beyondfn.xyz:8990/loginLauncherAuth/{Email.Text}/{Password.Password}");
 
-                if (res != "yay")
+                if (res.Contains("notfound"))
                 {
                     tosflyout.Content = "Email/Password is Incorrect!";
+                    tosflyout.Show();
+                }
+                else if (res == "isnotdonator")
+                {
+                    tosflyout.Content = "Beyond is currently Donator only!";
                     tosflyout.Show();
                 }
                 else

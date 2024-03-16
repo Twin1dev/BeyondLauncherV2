@@ -1,16 +1,9 @@
 ﻿using BeyondLauncherV2.Properties;
 using BeyondLauncherV2.Utilities;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Shapes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace BeyondLauncherV2.Fortnite
 {
