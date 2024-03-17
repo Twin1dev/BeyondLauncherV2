@@ -14,14 +14,14 @@
         <Label Content="Settings" FontSize="40px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="66,80,0,0" VerticalAlignment="Top" Height="73" Width="314"/>
         <ui:ToggleSwitch x:Name="RPCSwitch" IsChecked="True" FontSize="20px" Content="Enable RPC" Margin="66,153,0,0" VerticalAlignment="Top" Height="28" Width="157" Checked="RPCSwitch_Checked" Unchecked="RPCSwitch_Unchecked" Loaded="RPCSwitch_Loaded" Click="RPCSwitch_Click"/>
         <Label Content="Credits" FontSize="25px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="66,583,0,0" VerticalAlignment="Top" Height="38" Width="174"/>
-        <Label Content="Backend - Zetax, Lawin" FontSize="15px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="66,620,0,0" VerticalAlignment="Top" Height="24" Width="221"/>
-        <Label Content="GameServer - Twin1" FontSize="15px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="66,643,0,0" VerticalAlignment="Top" Height="24" Width="221"/>
+        <Label Content="Backend - Zetax, Lawin" FontSize="15px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="66,620,0,0" VerticalAlignment="Top" Height="24" Width="174"/>
+        <Label Content="GameServer - Twin1" FontSize="15px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="66,643,0,0" VerticalAlignment="Top" Height="24" Width="144"/>
         <ui:Button CornerRadius="10" Icon="Door28"  FontSize="15" Content="Log Out" Margin="698,616,0,0" VerticalAlignment="Top" Height="53" Width="162" Click="Button_Click">
             <ui:Button.Background>
                 <SolidColorBrush Color="#FF960707" Opacity="1"/>
             </ui:Button.Background>
         </ui:Button>
-        <Label Content="Launcher - Twin1, Syphon" FontSize="15px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="66,665,0,0" VerticalAlignment="Top" Height="24" Width="221"/>
+        <Label Content="Launcher - Twin1, Syphon" FontSize="15px" FontFamily="Segoe UI Bold" HorizontalAlignment="Left" Margin="66,665,0,0" VerticalAlignment="Top" Height="24" Width="184"/>
 
     </Grid>
 </Page>
