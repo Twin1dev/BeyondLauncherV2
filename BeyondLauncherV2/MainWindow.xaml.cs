@@ -16,6 +16,7 @@ namespace BeyondLauncherV2
         public MainWindow()
         {
             InitializeComponent();
+
             LoggingSystem.OpenLog();
             
             if (Settings.Default.Email == "" || Settings.Default.Password == "")
