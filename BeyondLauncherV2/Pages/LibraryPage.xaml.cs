@@ -140,7 +140,9 @@ namespace BeyondLauncherV2.Pages
  
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Downloading is disabled until a future update. Please use EasyInstallerV2 instead. (In #downloads)");
+        /*    MessageBox.Show("Downloading is disabled until a future update. Please use EasyInstallerV2 instead. (In #downloads)");*/
+
+            Globals.NavFrame.Navigate(new DownloadPage());
         }
     }
 }
