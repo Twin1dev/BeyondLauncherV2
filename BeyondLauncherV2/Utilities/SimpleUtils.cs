@@ -47,5 +47,12 @@ namespace BeyondLauncherV2.Utilities
             p.StartInfo.UseShellExecute = true;
             p.Start();
         }
+
+        public static string GetCurrentExeDirectory()
+        {
+            string strExeFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string strWorkPath = System.IO.Path.GetDirectoryName(strExeFilePath);
+            return strWorkPath;
+        }
     }
 }

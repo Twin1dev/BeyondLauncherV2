@@ -79,5 +79,14 @@ namespace BeyondLauncherV2.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.0.
+        /// </summary>
+        internal static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
     }
 }

@@ -112,7 +112,12 @@ namespace BeyondLauncherV2.Pages
             SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
             SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
             SimpleUtils.SafeKillProcess("Beyond");
-            Launch.LaunchGame();
+
+#if STAFF
+#else
+Launch.LaunchGame();
+#endif
+
 
             button.Content = "Close";
             button.Icon = SymbolRegular.ErrorCircle24;
@@ -213,7 +218,7 @@ namespace BeyondLauncherV2.Pages
             SimpleUtils.OpenLink("https://beyond-shop.tebex.io");
         }
 
-        #endregion
+#endregion
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
