@@ -23,6 +23,7 @@ namespace BeyondLauncherV2.Utilities
                     if (v != Resources.Version)
                     {
                         return true;
+
                     }
                 }
             }
