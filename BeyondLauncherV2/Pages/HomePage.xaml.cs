@@ -114,8 +114,9 @@ namespace BeyondLauncherV2.Pages
             SimpleUtils.SafeKillProcess("Beyond");
 
 #if STAFF
+            Launch.LaunchDev();
 #else
-Launch.LaunchGame();
+            Launch.LaunchGame();
 #endif
 
 

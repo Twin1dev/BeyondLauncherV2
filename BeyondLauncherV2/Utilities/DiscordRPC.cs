@@ -57,7 +57,7 @@ namespace BeyondLauncherV2.Utilities
         {
             if (bTimeStamp)
             {
-                client.SetPresence(new RichPresence()
+                client!.SetPresence(new RichPresence()
                 {
                     Details = details,
                     Timestamps = Timestamps.Now,
@@ -72,7 +72,7 @@ namespace BeyondLauncherV2.Utilities
                 });
             } else
             {
-                client.SetPresence(new RichPresence()
+                client!.SetPresence(new RichPresence()
                 {
                     Details = details,
                     Assets = new Assets()
@@ -90,12 +90,11 @@ namespace BeyondLauncherV2.Utilities
         public static void StopRPC()
         {
             // dispose better than deinit, stop memoryleaks
-            client.Dispose();
+            client!.Dispose();
         }
         public static void StopRPCDeInit()
         {
-      
-            client.Deinitialize();
+            client!.Deinitialize();
         }
     }
 }

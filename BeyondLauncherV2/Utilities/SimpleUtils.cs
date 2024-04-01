@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Windows;
 
@@ -36,7 +37,7 @@ namespace BeyondLauncherV2.Utilities
 
         public static void Restart()
         {
-            Process.Start(Process.GetCurrentProcess().MainModule.FileName);
+            Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.FriendlyName) + ".exe");
             Application.Current.Shutdown();
         }
 
@@ -50,9 +51,7 @@ namespace BeyondLauncherV2.Utilities
 
         public static string GetCurrentExeDirectory()
         {
-            string strExeFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string strWorkPath = System.IO.Path.GetDirectoryName(strExeFilePath);
-            return strWorkPath;
+            return AppDomain.CurrentDomain.BaseDirectory;
         }
     }
 }

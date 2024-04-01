@@ -36,6 +36,8 @@ namespace BeyondLauncherV2
 
             Globals.NavFrame = _NavigationFrame;
 
+            if (Updater.NeedsUpdate())
+                Updater.Update();
           
             imgBrush.ImageSource = new BitmapImage(new Uri(SimpleUtils.GetRandomSkinLink()));
 

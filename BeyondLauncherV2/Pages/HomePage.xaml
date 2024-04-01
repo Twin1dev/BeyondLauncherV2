@@ -10,10 +10,10 @@
       Title="HomePage" Initialized="Page_Initialized" Loaded="Page_Loaded">
 
     <Grid x:Name="MainGrid">
-        <ui:Button x:Name="button" FontSize="20px" FontFamily="Segoe UI Variable Small Semibold" CornerRadius="15" Icon="Play24" Content="PLAY" Margin="518,646,0,0" VerticalAlignment="Top" Height="74" Width="262" Click="Button_Click" RenderTransformOrigin="0.5,0.5" MouseEnter="button_MouseEnter" MouseLeave="button_MouseLeave">
+        <ui:Button x:Name="button" FontSize="20px" FontFamily="Segoe UI Variable Small Semibold" CornerRadius="15" Icon="Play24" Content="PLAY" Margin="530,646,0,0" VerticalAlignment="Top" Height="74" Width="262" Click="Button_Click" RenderTransformOrigin="0.5,0.5" MouseEnter="button_MouseEnter" MouseLeave="button_MouseLeave">
 
             <ui:Button.Background>
-                <SolidColorBrush Color="#FF1E1E1E" Opacity="0.80"/>
+                <SolidColorBrush Color="#FF232323" Opacity="0.80"/>
             </ui:Button.Background>
             <ui:Button.MouseOverBackground>
                 <SolidColorBrush Color="#FF1E1E1E" Opacity="0.80"/>
@@ -26,8 +26,8 @@
                 <ImageBrush ImageSource="/Images/background2-jv-1587767320993.png" Stretch="Fill" TileMode="None">
                     <ImageBrush.RelativeTransform>
                         <TransformGroup>
-                            <ScaleTransform CenterY="0.19" CenterX="1" ScaleX="1" ScaleY="3"/>
-                            <SkewTransform CenterX="1" CenterY="0.19"/>
+                            <ScaleTransform CenterY="0.17" CenterX="1" ScaleX="1" ScaleY="3"/>
+                            <SkewTransform CenterX="1" CenterY="0.30"/>
                             <RotateTransform CenterX="1" CenterY="0.19"/>
                             <TranslateTransform/>
                         </TransformGroup>
@@ -38,7 +38,7 @@
                 <ImageBrush ImageSource="/Images/background2-jv-1587767320993.png" Stretch="Fill" TileMode="None">
                     <ImageBrush.RelativeTransform>
                         <TransformGroup>
-                            <ScaleTransform CenterY="0.19" CenterX="1" ScaleX="1" ScaleY="3"/>
+                            <ScaleTransform CenterY="0.17" CenterX="1" ScaleX="1" ScaleY="3"/>
                             <SkewTransform CenterX="1" CenterY="0.19"/>
                             <RotateTransform CenterX="1" CenterY="0.19"/>
                             <TranslateTransform/>

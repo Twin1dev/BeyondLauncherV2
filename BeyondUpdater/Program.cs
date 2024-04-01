@@ -17,6 +17,9 @@ namespace BeyondUpdater
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Updating..");
+            Console.WriteLine(args[0]);
+            Thread.Sleep(3000);
             if (File.Exists(args[0]))
             {
                 try { File.Delete(args[0]); } catch {

@@ -16,7 +16,7 @@
 
     <Grid Background="#FF141414">
 
-       
+
 
         <ui:TitleBar Title="{Binding ViewModel.ApplicationTitle}" ShowMaximize="False" Panel.ZIndex="1" SnapsToDevicePixels="True" Height="33" VerticalAlignment="Top"></ui:TitleBar>
 
@@ -29,7 +29,7 @@
           
           
           x:Name="RootNavigation"
-          Frame="{Binding ElementName=RootFrame}"  Width="61" HorizontalAlignment="Left" Margin="4,288,0,4"  >
+          Frame="{Binding ElementName=RootFrame}"  Width="61" HorizontalAlignment="Left" Margin="4,88,0,4"  >
             <ui:NavigationStore.Items>
 
                 <ui:NavigationItem
@@ -54,7 +54,7 @@
         </ui:NavigationStore>
 
         <DockPanel LastChildFill="False" Margin="65,4,0,6">
-            <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden" Content="" DockPanel.Dock="Right" Width="1290" Navigating="_NavigationFrame_Navigating"/>
+            <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden" Content="" DockPanel.Dock="Right" Width="1290" Navigating="_NavigationFrame_Navigating" Background="#FF101010"/>
 
         </DockPanel>
         <ui:Button IsHitTestVisible="False" x:Name="AvatarButton" CornerRadius="150" Content="" Margin="11,21,0,0" VerticalAlignment="Top" Width="45" Height="45" Appearance="Transparent" MouseOverBackground="{x:Null}"/>
