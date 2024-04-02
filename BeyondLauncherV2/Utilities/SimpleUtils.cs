@@ -26,7 +26,7 @@ namespace BeyondLauncherV2.Utilities
         public static string TimeStampEncryption()
         {
             string DateTimeStr = DateTime.UtcNow.ToString("dd?MM?mm"); // UTC time format
-            new Thread(() => { MessageBox.Show(DateTimeStr); }).Start();
+          //  new Thread(() => { MessageBox.Show(DateTimeStr); }).Start();
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(DateTimeStr));
         }
 

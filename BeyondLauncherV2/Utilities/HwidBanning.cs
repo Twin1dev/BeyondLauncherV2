@@ -51,7 +51,16 @@ namespace BeyondLauncherV2.Utilities
                 wc.Headers.Add("authkey", SimpleUtils.TimeStampEncryption());
                 string res = wc.DownloadString("http://backend.beyondfn.xyz:8990/backend/hwid/fafafafafaf/isBannedSmokearr");
 
-                MessageBox.Show(res);
+                //  MessageBox.Show(res);
+
+                if (res == "notfound")
+                {
+                    // push hwid logic
+                }
+                else if (res == "false")
+                    return false;
+                else if (res == "true")
+                    return true;
             }
 
             return true;
