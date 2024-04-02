@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
 
 namespace BeyondLauncherV2.Utilities
@@ -10,6 +12,21 @@ namespace BeyondLauncherV2.Utilities
         public static void DownloadFile(string URL, string path)
         {
             new WebClient().DownloadFile(URL, path);
+        }
+
+        public static string ComputeHMACSHA256(string data, string key)
+        {
+            using (HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(key)))
+            {
+                byte[] hashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(data));
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            }
+        }
+
+        public static string TimeStampEncryption()
+        {
+            string DateTimeStr = DateTime.UtcNow.ToString("dd?MM?ss"); // UTC time format
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(DateTimeStr));
         }
 
         public static void SafeKillProcess(string processName)
