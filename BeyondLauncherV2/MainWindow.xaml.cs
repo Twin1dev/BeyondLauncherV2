@@ -39,7 +39,6 @@ namespace BeyondLauncherV2
             if (Updater.NeedsUpdate())
                 Updater.Update();
 
-            MessageBox.Show(SimpleUtils.TimeStampEncryption());
             imgBrush.ImageSource = new BitmapImage(new Uri(SimpleUtils.GetRandomSkinLink()));
 
             AvatarButton.Background = imgBrush;

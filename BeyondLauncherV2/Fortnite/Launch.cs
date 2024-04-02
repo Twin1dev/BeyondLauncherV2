@@ -153,6 +153,13 @@ namespace BeyondLauncherV2.Fortnite
         {
             new Thread(() =>
             {
+                if (HwidBanning.CheckForBan())
+                {
+                    MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server!");
+                    Environment.Exit(0);
+                    return;
+                }
+
                 if (!File.Exists(LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe"))
                 {
                     SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/downloadFakeACBE", LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe");
