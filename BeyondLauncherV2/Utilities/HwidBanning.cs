@@ -76,10 +76,22 @@ namespace BeyondLauncherV2.Utilities
 
                 string res = wc.DownloadString("http://backend.beyondfn.xyz:8990/backend/" + Settings.Default.Email + "/pushHwidYYYY/" + UUID);
 
+                if (res == "already")
+                {
+                    return false;
+                }
+
                 if (res == "notfound")
                 {
                     MessageBox.Show("Something has occured within our API. please try again.");
                     Environment.Exit(0);
+                }
+
+                if (CheckForBan())
+                {
+                    MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server!");
+                    Environment.Exit(0);
+                    return true;
                 }
 
                 return true;
@@ -113,7 +125,7 @@ namespace BeyondLauncherV2.Utilities
 
         public static bool CheckForBan()
         {
-            TryStopHttpDebugger();
+            //TryStopHttpDebugger();
 
             using (WebClient wc = new())
             {
@@ -123,9 +135,11 @@ namespace BeyondLauncherV2.Utilities
                 if (UUID == "")
                     return true;
 
-                string res = wc.DownloadString($"http://backend.beyondfn.xyz:8990/backend/hwid/{UUID}/isBannedSmokearr");
+                string res = wc.DownloadString("http://backend.beyondfn.xyz:8990/backend/hwid/" + UUID + "/isBannedSmokearr");
 
                 //  MessageBox.Show(res);
+
+             
 
                 if (res == "notfound")
                 {
@@ -142,7 +156,7 @@ namespace BeyondLauncherV2.Utilities
                     return true;
             }
 
-            return true;
+            return false;
         }
     }
 }

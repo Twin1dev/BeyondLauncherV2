@@ -149,12 +149,20 @@ namespace BeyondLauncherV2.Pages
             if (anyProcessRunning)
             {
                 button.Content = "Close";
-                button.Icon = Wpf.Ui.Common.SymbolRegular.ErrorCircle24;
+                button.Icon = SymbolRegular.ErrorCircle24;
             }
             else
             {
-                button.Content = "Launch";
-                button.Icon = Wpf.Ui.Common.SymbolRegular.Play24;
+                if (Settings.Default.Path == "")
+                {
+                    button.Content = "Set Path";
+                    button.Icon = SymbolRegular.Folder24;
+                } else
+                {
+                    button.Content = "Launch";
+                    button.Icon = SymbolRegular.Play24;
+                }
+               
             }
         }
 
