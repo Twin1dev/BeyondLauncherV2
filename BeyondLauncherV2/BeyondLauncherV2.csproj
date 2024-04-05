@@ -44,6 +44,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="EasyInstallerV2">
+      <HintPath>..\..\EasyInstallerV2Class\EasyInstallerV2\bin\Release\net6.0-windows\EasyInstallerV2.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
