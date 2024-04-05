@@ -25,8 +25,7 @@ namespace BeyondLauncherV2.Utilities
 
         public static string TimeStampEncryption()
         {
-            string DateTimeStr = DateTime.UtcNow.ToString("dd?MM?ss"); // UTC time format
-          //  new Thread(() => { MessageBox.Show(DateTimeStr); }).Start();
+            string DateTimeStr = DateTime.UtcNow.ToString("dd?MM?ss");
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(DateTimeStr));
         }
 
@@ -65,6 +64,11 @@ namespace BeyondLauncherV2.Utilities
             p.StartInfo.FileName = link;
             p.StartInfo.UseShellExecute = true;
             p.Start();
+        }
+
+        public static bool VerifyStaff()
+        {
+            return true;
         }
 
         public static string GetCurrentExeDirectory()

@@ -76,9 +76,10 @@ namespace BeyondLauncherV2.Utilities
 
                 string res = wc.DownloadString("http://backend.beyondfn.xyz:8990/backend/" + Settings.Default.Email + "/pushHwidYYYY/" + UUID);
 
+                // todo better way of this
                 if (res == "already")
                 {
-                    return false;
+                    return true;
                 }
 
                 if (res == "notfound")
@@ -139,7 +140,7 @@ namespace BeyondLauncherV2.Utilities
 
                 //  MessageBox.Show(res);
 
-             
+                
 
                 if (res == "notfound")
                 {
@@ -151,7 +152,29 @@ namespace BeyondLauncherV2.Utilities
                     }
                 }
                 else if (res == "false")
+                {
+                    // i dont think we need to use the absoulute value?
+                    try
+                    {
+                        string authkey = Encoding.UTF8.GetString(Convert.FromBase64String(wc.ResponseHeaders.Get("authkey")));
+                        int authkeyseconds = Int32.Parse(authkey.Split('?').Last());
+
+                        int currentDateTimeSeconds = Int32.Parse(DateTime.UtcNow.ToString("ss"));
+
+                        int TimeDiff = authkeyseconds - currentDateTimeSeconds ;
+
+                       // MessageBox.Show(TimeDiff.ToString());
+                        if (TimeDiff > 3)
+                        {
+                            return true;
+                        }
+                    } catch (Exception ex) {
+                        MessageBox.Show("An error occured. Code: 0x130");
+                        Environment.Exit(0);
+                    }
+
                     return false;
+                }
                 else if (res == "true")
                     return true;
             }

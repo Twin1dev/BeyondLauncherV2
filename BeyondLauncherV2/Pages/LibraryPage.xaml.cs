@@ -40,39 +40,39 @@ namespace BeyondLauncherV2.Pages
             MainGrid.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
             translateTransform.BeginAnimation(TranslateTransform.XProperty, slideDownAnimation);
 
-            if (Settings.Default.Path != "")
-            {
-                string[] processesToCheck = { "EasyAntiCheat_EOS", "FortniteClient-Win64-Shipping", "FortniteLauncher", "FortniteClient-Win64-Shipping_BE" };
+            //if (Settings.Default.Path != "")
+            //{
+            //    string[] processesToCheck = { "EasyAntiCheat_EOS", "FortniteClient-Win64-Shipping", "FortniteLauncher", "FortniteClient-Win64-Shipping_BE" };
 
-                bool anyProcessRunning = false;
+            //    bool anyProcessRunning = false;
 
-                foreach (string processName in processesToCheck)
-                {
-                    Process[] processes = Process.GetProcessesByName(processName);
-                    if (processes.Length > 0)
-                    {
-                        anyProcessRunning = true;
-                        break;
-                    }
-                }
+            //    foreach (string processName in processesToCheck)
+            //    {
+            //        Process[] processes = Process.GetProcessesByName(processName);
+            //        if (processes.Length > 0)
+            //        {
+            //            anyProcessRunning = true;
+            //            break;
+            //        }
+            //    }
 
-                if (anyProcessRunning)
-                {
-                    LocateButton1.Content = "Close";
-                    LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.ErrorCircle24;
+            //    if (anyProcessRunning)
+            //    {
+            //        LocateButton1.Content = "Close";
+            //        LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.ErrorCircle24;
 
-                }
-                else
-                {
-                    LocateButton1.Content = "Launch";
-                    LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.Play24;
-                }
-            }
-            else
-            {
+            //    }
+            //    else
+            //    {
+            //        LocateButton1.Content = "Launch";
+            //        LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.Play24;
+            //    }
+            //}
+            //else
+            //{
                 LocateButton1.Content = "Select Path";
                 LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.Folder24;
-            }
+          //  }
 
 
         }
@@ -128,9 +128,6 @@ namespace BeyondLauncherV2.Pages
                         {
                             Properties.Settings.Default.Path = dialog.FileName;
                             Properties.Settings.Default.Save();
-                            LocateButton1.Content = "Launch";
-                            button.Icon = SymbolRegular.Play24;
-
 
                         }
                     }
