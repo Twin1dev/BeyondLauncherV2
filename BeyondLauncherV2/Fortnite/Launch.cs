@@ -90,6 +90,15 @@ namespace BeyondLauncherV2.Fortnite
 
             new Thread(() =>
             {
+
+                if (HwidBanning.CheckForBan())
+                {
+                    MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server!");
+                    Environment.Exit(0);
+                    return;
+                }
+
+
                 if (!File.Exists(LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe"))
                 {
                     SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/downloadFakeACBE", LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe");
@@ -125,25 +134,31 @@ namespace BeyondLauncherV2.Fortnite
                 }
 
 
+                File.WriteAllBytes(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll", Resources.Beyond_Client_Dev);
+
+                while (!File.Exists(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"))
+                {
+                    Task.Delay(500);
+                }
+
+                string keyPath = "Software\\NovaFn";
+                var SubKey = Registry.CurrentUser.OpenSubKey(keyPath, true);
+                SubKey.SetValue("accountId", Anticheat.GetFileHash(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"));
+                SubKey.Close();
+
+
+
                 var Proc = Process.Start(new ProcessStartInfo
                 {
                     FileName = Settings.Default.Path + "\\FortniteGame\\Binaries\\Win64\\FortniteClient-Win64-Shipping.exe",
-                    RedirectStandardOutput = true,
+                    Arguments = "-epicapp=Fortnite -epicenv=Prod -epiclocale=en-us -epicportal -noeac -fromfl=be -fltoken=h1cdhchd10150221h130eB56 -skippatchcheck -AUTH_TYPE=EPIC -AUTH_LOGIN=" + Settings.Default.Email + " -AUTH_PASSWORD=" + Settings.Default.Password,
+               
                     UseShellExecute = false
                 });
 
-                Win32.Inject(Proc!.Id, Directory.GetCurrentDirectory() + "\\Redirect.dll");
 
-                for (; ; )
-                {
-                    string Line = Proc.StandardOutput.ReadLine()!;
 
-                    if (Line.Contains("Game Engine Initialized"))
-                    {
-                        Win32.Inject(Proc.Id, Directory.GetCurrentDirectory() + "\\Console.dll");
-                        break;
-                    }
-                }
+              //  Win32.Inject(Proc!.Id, Directory.GetCurrentDirectory() + "\\Redirect.dll");
 
             }).Start();
             

@@ -121,10 +121,13 @@
   <data name="Beyond_Client" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Beyond.Client.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Beyond_Client_Dev" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Beyond.Client.Dev.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="EAC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EAC.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>1.0</value>
+    <value>1.1</value>
   </data>
 </root>

@@ -15,6 +15,7 @@
   <ItemGroup>
     <None Remove="background2-jv-1587767320993.png" />
     <None Remove="Pages\travis-scott-fortnite_3279.png" />
+    <None Remove="Resources\Beyond.Client.Dev.dll" />
     <None Remove="Resources\Beyond.Client.dll" />
     <None Remove="Resources\EAC.zip" />
   </ItemGroup>
@@ -31,6 +32,7 @@
   <ItemGroup>
     <Resource Include="Images\background2-jv-1587767320993.png" />
     <Resource Include="Images\travis-scott-fortnite_3279.png" />
+    <EmbeddedResource Include="Resources\Beyond.Client.Dev.dll" />
   </ItemGroup>
 
   <ItemGroup>

@@ -108,6 +108,7 @@ namespace BeyondLauncherV2.Pages
             SimpleUtils.SafeKillProcess("EpicGamesLauncher");
             SimpleUtils.SafeKillProcess("EpicWebHelper");
             SimpleUtils.SafeKillProcess("CrashReportClient");
+            SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
             SimpleUtils.SafeKillProcess("FortniteLauncher");
             SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
             SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");

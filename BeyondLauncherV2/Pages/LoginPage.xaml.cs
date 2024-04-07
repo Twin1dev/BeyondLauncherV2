@@ -43,11 +43,11 @@ namespace BeyondLauncherV2.Pages
                     tosflyout.Content = "Email/Password is Incorrect!";
                     tosflyout.Show();
                 }
-                else if (res == "isnotdonator")
+                /*else if (res == "isnotdonator")
                 {
                     tosflyout.Content = "Beyond is currently Donator only!";
                     tosflyout.Show();
-                }
+                }*/
                 else
                 {
                     Settings.Default.Email = Email.Text;

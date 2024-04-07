@@ -73,6 +73,16 @@ namespace BeyondLauncherV2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Beyond_Client_Dev {
+            get {
+                object obj = ResourceManager.GetObject("Beyond_Client_Dev", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] EAC {
             get {
                 object obj = ResourceManager.GetObject("EAC", resourceCulture);
@@ -81,7 +91,7 @@ namespace BeyondLauncherV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.0.
+        ///   Looks up a localized string similar to 1.1.
         /// </summary>
         internal static string Version {
             get {

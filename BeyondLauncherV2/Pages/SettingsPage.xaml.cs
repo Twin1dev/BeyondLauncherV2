@@ -71,6 +71,7 @@ namespace BeyondLauncherV2.Pages
 
             MainGrid.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
             translateTransform.BeginAnimation(TranslateTransform.XProperty, slideDownAnimation);
+            VersionText.Content = $"Beyond V{Properties.Resources.Version}";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
