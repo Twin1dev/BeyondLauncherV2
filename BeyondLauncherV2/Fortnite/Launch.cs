@@ -186,6 +186,8 @@ namespace BeyondLauncherV2.Fortnite
                     SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
                     SimpleUtils.SafeKillProcess("Beyond");
 
+                    string pakpath = Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\";
+
                     if (!File.Exists(LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe"))
                     {
                         SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/downloadFakeACBE", LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe");
@@ -194,6 +196,15 @@ namespace BeyondLauncherV2.Fortnite
                     {
                         SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/downloadFakeACLAUNCHER", LoggingSystem.BeyondFolder + "\\FortniteLauncher.exe");
                     }
+                    if (!File.Exists(pakpath + "\\pakchunkBeyond-WindowsClient.pak"))
+                    {
+                       SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/pakchunkBeyond-WindowsClient.pak", pakpath + "\\pakchunkBeyond-WindowsClient.pak");
+                    }
+                    if (!File.Exists(pakpath + "\\pakchunkBeyond-WindowsClient.sig"))
+                    {
+                        SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/pakchunkBeyond-WindowsClient.sig", pakpath + "\\pakchunkBeyond-WindowsClient.sig");
+                    }
+
                     Process.Start(new ProcessStartInfo
                     {
                         FileName = LoggingSystem.BeyondFolder + "\\FortniteLauncher.exe",
