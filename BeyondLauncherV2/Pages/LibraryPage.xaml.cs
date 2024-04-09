@@ -73,7 +73,11 @@ namespace BeyondLauncherV2.Pages
                 LocateButton1.Content = "Select Path";
                 LocateButton1.Icon = Wpf.Ui.Common.SymbolRegular.Folder24;
           //  }
-
+            
+            if (Properties.Settings.Default.Path != "")
+            {
+                LocateButton1.Content = "Change Path";
+            }
 
         }
 
@@ -128,7 +132,7 @@ namespace BeyondLauncherV2.Pages
                         {
                             Properties.Settings.Default.Path = dialog.FileName;
                             Properties.Settings.Default.Save();
-
+                            LocateButton1.Content = "Change Path";
                         }
                     }
                 }

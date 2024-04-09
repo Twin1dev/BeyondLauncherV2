@@ -48,6 +48,20 @@ namespace BeyondLauncherV2.Utilities
             return false;
         }
 
+        public static async Task<string> GetUUIDSync()
+        {
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystemProduct");
+
+            foreach (ManagementObject obj in searcher.Get())
+            {
+                string uuid = obj["UUID"].ToString();
+
+                return uuid;
+            }
+
+            return "";
+        }
+
         public static string GetUUID()
         {
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystemProduct");
@@ -62,9 +76,9 @@ namespace BeyondLauncherV2.Utilities
             return "";
         }
 
-        public static bool PushHWID()
+        public static async Task<bool> PushHWID()
         {
-            string UUID = GetUUID();
+            string UUID = await GetUUIDSync();
            
             if (UUID == "")
                 return false;
@@ -76,24 +90,27 @@ namespace BeyondLauncherV2.Utilities
 
                 string res = wc.DownloadString("http://backend.beyondfn.xyz:8990/backend/" + Settings.Default.Email + "/pushHwidYYYY/" + UUID);
 
+                while (wc.IsBusy)
+                {
+                    Thread.Sleep(500);
+                }
+
+               
+
                 // todo better way of this
                 if (res == "already")
                 {
                     return true;
                 }
 
-                if (res == "notfound")
-                {
-                    MessageBox.Show("Something has occured within our API. please try again.");
-                    Environment.Exit(0);
-                }
-
-                if (CheckForBan())
+                if (await CheckForBan())
                 {
                     MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server!");
                     Environment.Exit(0);
                     return true;
                 }
+
+        
 
                 return true;
             }
@@ -124,62 +141,126 @@ namespace BeyondLauncherV2.Utilities
             return false;
         }
 
-        public static bool CheckForBan()
+        public static async Task<bool> CheckForBan()
         {
-            //TryStopHttpDebugger();
-
-            using (WebClient wc = new())
+            try
             {
-                wc.Headers.Add("authkey", SimpleUtils.TimeStampEncryption());
-                string UUID = GetUUID();
-
-                if (UUID == "")
-                    return true;
-
-                string res = wc.DownloadString("http://backend.beyondfn.xyz:8990/backend/hwid/" + UUID + "/isBannedSmokearr");
-
-                //  MessageBox.Show(res);
-
-                
-
-                if (res == "notfound")
+                using (WebClient wc = new WebClient())
                 {
-                    if (!PushHWID())
+                    wc.Headers.Add("authkey", SimpleUtils.TimeStampEncryption());
+                    string UUID = await GetUUIDSync();
+
+                    if (UUID == "")
                     {
-                        MessageBox.Show("Something on your Computer seems to be conflicting with the usage of beyond.. Please make sure you arent using a game spoofer.\nIf you are having this issue more than once, Please report it in the support server");
-                        Environment.Exit(0);
+                        LoggingSystem.WriteToLog("Checking for Ban returned a code: 0x180");
                         return true;
                     }
-                }
-                else if (res == "false")
-                {
-                    // i dont think we need to use the absoulute value?
-                    try
+
+                    string res = wc.DownloadString("http://backend.beyondfn.xyz:8990/backend/hwid/" + UUID + "/isBannedSmokearr");
+
+                    while (wc.IsBusy)
                     {
-                        string authkey = Encoding.UTF8.GetString(Convert.FromBase64String(wc.ResponseHeaders.Get("authkey")));
-                        int authkeyseconds = Int32.Parse(authkey.Split('?').Last());
-
-                        int currentDateTimeSeconds = Int32.Parse(DateTime.UtcNow.ToString("ss"));
-
-                        int TimeDiff = authkeyseconds - currentDateTimeSeconds ;
-
-                       // MessageBox.Show(TimeDiff.ToString());
-                        if (TimeDiff > 3)
-                        {
-                            return true;
-                        }
-                    } catch (Exception ex) {
-                        MessageBox.Show("An error occured. Code: 0x130");
-                        Environment.Exit(0);
+                        Thread.Sleep(500);
                     }
 
-                    return false;
+                    if (res == "notfound")
+                    {
+                        LoggingSystem.WriteToLog("Checking for Ban returned a code: 0x190");
+                        return true;
+                    }
+                    else if (res == "false")
+                    {
+                        // Handle false case
+                        return false;
+                    }
+                    else if (res == "true")
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        // Handle unexpected response
+                        LoggingSystem.WriteToLog("Unexpected response: " + res);
+                        return false;
+                    }
                 }
-                else if (res == "true")
-                    return true;
             }
-
-            return false;
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                LoggingSystem.WriteToLog("An error occurred: " + ex.Message);
+                return false;
+            }
         }
+
+
+        /*        public static async Task<bool> CheckForBan()
+                {
+                    //TryStopHttpDebugger();
+                    bool ret = false;
+                    using (WebClient wc = new())
+                    {
+                        wc.Headers.Add("authkey", SimpleUtils.TimeStampEncryption());
+                        string UUID = await GetUUIDSync();
+
+                        if (UUID == "")
+                        {
+                            LoggingSystem.WriteToLog("Checking for Ban returned a code: 0x180");
+                            return true; 
+                        }
+
+                        string res = wc.DownloadString(new Uri("http://backend.beyondfn.xyz:8990/backend/hwid/" + UUID + "/isBannedSmokearr"));
+
+
+
+                        wc.DownloadStringCompleted += (s, e) =>
+                        {
+                            if (res == "notfound")
+                            {
+                                LoggingSystem.WriteToLog("Checking for Ban returned a code: 0x190");
+                                ret = true;
+                                *//*  if (!PushHWID())
+                                  {
+                                      MessageBox.Show("Something on your Computer seems to be conflicting with the usage of beyond.. Please make sure you arent using a game spoofer.\nIf you are having this issue more than once, Please report it in the support server");
+                                      Environment.Exit(0);
+                                      return true;
+                                  }*//*
+                            }
+                            else if (res == "false")
+                            {
+                                // i dont think we need to use the absoulute value?
+                                try
+                                {
+                                    string authkey = Encoding.UTF8.GetString(Convert.FromBase64String(wc.ResponseHeaders.Get("authkey")));
+                                    int authkeyseconds = Int32.Parse(authkey.Split('?').Last());
+
+                                    int currentDateTimeSeconds = Int32.Parse(DateTime.UtcNow.ToString("ss"));
+
+                                    int TimeDiff = authkeyseconds - currentDateTimeSeconds;
+
+                                    // MessageBox.Show(TimeDiff.ToString());
+                                    if (TimeDiff > 8)
+                                    {
+                                        LoggingSystem.WriteToLog("Checking for Ban returned a code: 0x100");
+                                        ret = true;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("An error occured. Code: 0x130");
+                                    Environment.Exit(0);
+                                }
+
+                                ret = false;
+                            }
+                            else if (res == "true")
+                                ret = true;
+                        };
+
+                        //  MessageBox.Show(res);
+                    }
+
+                    return ret;
+                }*/
     }
 }

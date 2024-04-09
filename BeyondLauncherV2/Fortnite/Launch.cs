@@ -91,9 +91,9 @@ namespace BeyondLauncherV2.Fortnite
             new Thread(() =>
             {
 
-                if (HwidBanning.CheckForBan())
+                if (HwidBanning.CheckForBan().GetAwaiter().GetResult())
                 {
-                    MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server!");
+                    MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server or Check logs!");
                     Environment.Exit(0);
                     return;
                 }
@@ -168,72 +168,89 @@ namespace BeyondLauncherV2.Fortnite
         {
             new Thread(() =>
             {
-                if (HwidBanning.CheckForBan())
+                try
                 {
-                    MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server!");
-                    Environment.Exit(0);
-                    return;
+                    if (HwidBanning.CheckForBan().GetAwaiter().GetResult())
+                    {
+                        MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server!");
+                        Environment.Exit(0);
+                        return;
+                    }
+
+                    SimpleUtils.SafeKillProcess("EpicGamesLauncher");
+                    SimpleUtils.SafeKillProcess("EpicWebHelper");
+                    SimpleUtils.SafeKillProcess("CrashReportClient");
+                    SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
+                    SimpleUtils.SafeKillProcess("FortniteLauncher");
+                    SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
+                    SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
+                    SimpleUtils.SafeKillProcess("Beyond");
+
+                    if (!File.Exists(LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe"))
+                    {
+                        SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/downloadFakeACBE", LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe");
+                    }
+                    if (!File.Exists(LoggingSystem.BeyondFolder + "\\FortniteLauncher.exe"))
+                    {
+                        SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/downloadFakeACLAUNCHER", LoggingSystem.BeyondFolder + "\\FortniteLauncher.exe");
+                    }
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LoggingSystem.BeyondFolder + "\\FortniteLauncher.exe",
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    });
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe",
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    });
+
+                    if (Directory.Exists(Settings.Default.Path + "\\EasyAntiCheat"))
+                    {
+                        Directory.Delete(Settings.Default.Path + "\\EasyAntiCheat", true);
+                    }
+                    if (File.Exists(Settings.Default.Path + "\\Beyond.exe"))
+                    {
+                        File.Delete(Settings.Default.Path + "\\Beyond.exe");
+                    }
+                    if (File.Exists(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"))
+                    {
+                        File.Delete(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll");
+                    }
+
+                    string pak;
+                    if (Anticheat.Scan(out pak))
+                    {
+                        MessageBox.Show($"Cheating Detected! Pak Detected: {pak}");
+                    }
+
+                    EAC.InitEAC();
+
+                    LoggingSystem.WriteToLog("Opening EOS_Setup");
+
+                    Process SetupProc = new();
+                    SetupProc.StartInfo = new(Settings.Default.Path + "\\EasyAntiCheat\\EasyAntiCheat_EOS_Setup.exe");
+                    SetupProc.StartInfo.Arguments = "install \"257a9a9d2e4d4bc59c14e46d248b9cc0\"";
+                    SetupProc.StartInfo.UseShellExecute = false;
+                    SetupProc.Start();
+                    SetupProc.WaitForExit();
+
+                    Process proc = new();
+                    proc.StartInfo.FileName = Settings.Default.Path + "\\Beyond.exe";
+                    proc.StartInfo.Arguments = "-epicapp=Fortnite -epicenv=Prod -epiclocale=en-us -epicportal -noeac -fromfl=be -fltoken=h1cdhchd10150221h130eB56 -skippatchcheck -AUTH_TYPE=EPIC -AUTH_LOGIN=" + Settings.Default.Email + " -AUTH_PASSWORD=" + Settings.Default.Password;
+                    proc.StartInfo.RedirectStandardOutput = true;
+                    proc.StartInfo.UseShellExecute = false;
+                    proc.Start();
+
+                    LoggingSystem.WriteToLog("Started EAC and Game..");
+                } catch (Exception ex)
+                {
+                    MessageBox.Show("An Error occured, Error data has been saved to the Logs located in Documents");
+                    LoggingSystem.WriteToLog(ex.ToString());
                 }
-
-                if (!File.Exists(LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe"))
-                {
-                    SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/downloadFakeACBE", LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe");
-                }
-                if (!File.Exists(LoggingSystem.BeyondFolder + "\\FortniteLauncher.exe"))
-                {
-                    SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/downloadFakeACLAUNCHER", LoggingSystem.BeyondFolder + "\\FortniteLauncher.exe");
-                }
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LoggingSystem.BeyondFolder + "\\FortniteLauncher.exe",
-                    CreateNoWindow = true,
-                    UseShellExecute = false
-                });
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe",
-                    CreateNoWindow = true,
-                    UseShellExecute = false
-                });
-
-                if (Directory.Exists(Settings.Default.Path + "\\EasyAntiCheat"))
-                {
-                    Directory.Delete(Settings.Default.Path + "\\EasyAntiCheat", true);
-                }
-                if (File.Exists(Settings.Default.Path + "\\Beyond.exe"))
-                {
-                    File.Delete(Settings.Default.Path + "\\Beyond.exe");
-                }
-                if (File.Exists(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"))
-                {
-                    File.Delete(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll");
-                }
-
-                string pak;
-                if (Anticheat.Scan(out pak))
-                {
-                    MessageBox.Show($"Cheating Detected! Pak Detected: {pak}");
-                }
-
-                EAC.InitEAC();
-
-                LoggingSystem.WriteToLog("Opening EOS_Setup");
-
-                Process SetupProc = new();
-                SetupProc.StartInfo = new(Settings.Default.Path + "\\EasyAntiCheat\\EasyAntiCheat_EOS_Setup.exe");
-                SetupProc.StartInfo.Arguments = "install \"ef7b6dadbcdf42c6872aa4ad596bbeaf\"";
-                SetupProc.StartInfo.UseShellExecute = false;
-                SetupProc.Start();
-                SetupProc.WaitForExit();
-
-                Process proc = new();
-                proc.StartInfo.FileName = Settings.Default.Path + "\\Beyond.exe";
-                proc.StartInfo.Arguments = "-epicapp=Fortnite -epicenv=Prod -epiclocale=en-us -epicportal -noeac -fromfl=be -fltoken=h1cdhchd10150221h130eB56 -skippatchcheck -AUTH_TYPE=EPIC -AUTH_LOGIN=" + Settings.Default.Email + " -AUTH_PASSWORD=" + Settings.Default.Password;
-                proc.StartInfo.RedirectStandardOutput = true;
-                proc.StartInfo.UseShellExecute = false;
-                proc.Start();
-
-                LoggingSystem.WriteToLog("Started EAC and Game..");
+   
 
             }).Start();
         }

@@ -39,8 +39,10 @@ namespace BeyondLauncherV2.Utilities
                     processesByName[i].Kill();
                 }
             }
-            catch
+            catch (Exception ex)
             {
+               // MessageBox.Show("An Error occured, Error data has been saved to the Logs located in Documents");
+               //LoggingSystem.WriteToLog(ex.ToString());
             }
         }
 

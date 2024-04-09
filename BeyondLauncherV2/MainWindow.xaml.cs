@@ -36,9 +36,10 @@ namespace BeyondLauncherV2
 
             Globals.NavFrame = _NavigationFrame;
 
+#if RELEASE
             if (Updater.NeedsUpdate())
                 Updater.Update();
-
+#endif
             //HwidBanning.CheckForBan();
 
             imgBrush.ImageSource = new BitmapImage(new Uri(SimpleUtils.GetRandomSkinLink()));

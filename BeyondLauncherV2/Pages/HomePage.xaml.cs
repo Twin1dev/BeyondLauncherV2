@@ -19,152 +19,192 @@ namespace BeyondLauncherV2.Pages
         {
             InitializeComponent();
 
-            if (Settings.Default.Email != "")
+            try
             {
-                using (WebClient wc = new WebClient())
+                if (Settings.Default.Email != "")
                 {
-                    string username = wc.DownloadString($"http://backend.beyondfn.xyz:8990/getUsernamebyemail/{Settings.Default.Email}");
+                    using (WebClient wc = new WebClient())
+                    {
+                        string username = wc.DownloadString($"http://backend.beyondfn.xyz:8990/getUsernamebyemail/{Settings.Default.Email}");
 
-                    HelloLabel.Content = "Hello, " + username + "!";
+                        HelloLabel.Content = "Hello, " + username + "!";
+                    }
+                }
+                else
+                {
+                    Settings.Default.Save();
+                    MessageBox.Show("Seems something really odd has happened with your launcher, please restart it.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Settings.Default.Save();
-                MessageBox.Show("Seems something really odd has happened with your launcher, please restart it.");
+                MessageBox.Show("An Error occured, Error data has been saved to the Logs located in Documents");
+                LoggingSystem.WriteToLog(ex.ToString());
+                Process.Start("explorer.exe", LoggingSystem.BeyondFolder);
             }
         }
 
         #region Events
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-          
-
-            if ((string)button.Content == "Set Path")
+            try
             {
-                Globals.NavFrame.Navigate(new LibraryPage());
-                return;
-            }
+                bool Ret = HwidBanning.PushHWID().GetAwaiter().GetResult();
 
-            string keyPath = "Software\\NovaFn";
-            var SubKey = Registry.CurrentUser.OpenSubKey(keyPath, true);
-
-            if (SubKey == null)
-            {
-                MessageBox.Show("Issue while launching. Try again in Admin");
-                Registry.CurrentUser.CreateSubKey(keyPath).Close();
-                return;
-            }
-
-            if ((string)button.Content == "Close")
-            {
-                try
+                if (!Ret)
                 {
-                    SubKey.DeleteValue("accountId");
-                    SubKey.Close();
+                    MessageBox.Show("Something seems to be conflicting with the usage of beyond, Please create a ticket in the support server");
+                    Environment.Exit(0);
+                    return;
                 }
-                catch { }
+
+             
+
+                if ((string)button.Content == "Set Path")
+                {
+                    Globals.NavFrame.Navigate(new LibraryPage());
+                    return;
+                }
+
+                string keyPath = "Software\\NovaFn";
+                var SubKey = Registry.CurrentUser.OpenSubKey(keyPath, true);
+
+                if (SubKey == null)
+                {
+                    MessageBox.Show("Issue while launching. Try again in Admin");
+                    Registry.CurrentUser.CreateSubKey(keyPath).Close();
+                    return;
+                }
+
+                if ((string)button.Content == "Close")
+                {
+                    try
+                    {
+                        SubKey.DeleteValue("accountId");
+                        SubKey.Close();
+                    }
+                    catch { }
+
+                    SimpleUtils.SafeKillProcess("EpicGamesLauncher");
+                    SimpleUtils.SafeKillProcess("EpicWebHelper");
+                    SimpleUtils.SafeKillProcess("CrashReportClient");
+                    SimpleUtils.SafeKillProcess("FortniteLauncher");
+                    SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
+                    SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
+                    SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
+                    SimpleUtils.SafeKillProcess("Beyond");
+                    button.Content = "Launch";
+                    button.Icon = SymbolRegular.Play24;
+                    Thread.Sleep(1500);
+                    SimpleUtils.SafeKillProcess("EpicGamesLauncher");
+                    SimpleUtils.SafeKillProcess("EpicWebHelper");
+                    SimpleUtils.SafeKillProcess("CrashReportClient");
+                    SimpleUtils.SafeKillProcess("FortniteLauncher");
+                    SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
+                    SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
+                    SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
+                    SimpleUtils.SafeKillProcess("Beyond");
+                    return;
+                }
+
+                ToastUtils.ShowToast("Launching Game..", "This may take a bit.");
+
+                DependencyObject parent = VisualTreeHelper.GetParent(this);
+                while (!(parent is Window) && parent != null)
+                {
+                    parent = VisualTreeHelper.GetParent(parent);
+                }
+
+                if (parent is Window parentWindow)
+                {
+                    parentWindow.WindowState = WindowState.Minimized;
+                }
+
+                LoggingSystem.WriteToLog("Launching Game");
+
+                if (Settings.Default.StartRPC)
+                    RPC.UpdateRPC("Launching Game", true);
 
                 SimpleUtils.SafeKillProcess("EpicGamesLauncher");
                 SimpleUtils.SafeKillProcess("EpicWebHelper");
                 SimpleUtils.SafeKillProcess("CrashReportClient");
-                SimpleUtils.SafeKillProcess("FortniteLauncher");
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
+                SimpleUtils.SafeKillProcess("FortniteLauncher");
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                 SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
                 SimpleUtils.SafeKillProcess("Beyond");
-                button.Content = "Launch";
-                button.Icon = SymbolRegular.Play24;
-                Thread.Sleep(1500);
-                SimpleUtils.SafeKillProcess("EpicGamesLauncher");
-                SimpleUtils.SafeKillProcess("EpicWebHelper");
-                SimpleUtils.SafeKillProcess("CrashReportClient");
-                SimpleUtils.SafeKillProcess("FortniteLauncher");
-                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
-                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
-                SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
-                SimpleUtils.SafeKillProcess("Beyond");
-                return;
-            }
-
-            ToastUtils.ShowToast("Launching Game..", "This may take a bit.");
-
-            DependencyObject parent = VisualTreeHelper.GetParent(this);
-            while (!(parent is Window) && parent != null)
-            {
-                parent = VisualTreeHelper.GetParent(parent);
-            }
-
-            if (parent is Window parentWindow)
-            {
-                parentWindow.WindowState = WindowState.Minimized;
-            }
-
-            LoggingSystem.WriteToLog("Launching Game");
-
-            if (Settings.Default.StartRPC)
-                RPC.UpdateRPC("Launching Game", true);
-
-            SimpleUtils.SafeKillProcess("EpicGamesLauncher");
-            SimpleUtils.SafeKillProcess("EpicWebHelper");
-            SimpleUtils.SafeKillProcess("CrashReportClient");
-            SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
-            SimpleUtils.SafeKillProcess("FortniteLauncher");
-            SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
-            SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
-            SimpleUtils.SafeKillProcess("Beyond");
 
 #if STAFF
             Launch.LaunchDev();
 #else
-            Launch.LaunchGame();
+                Launch.LaunchGame();
 #endif
 
 
-            button.Content = "Close";
-            button.Icon = SymbolRegular.ErrorCircle24;
+
+                button.Content = "Close";
+                button.Icon = SymbolRegular.ErrorCircle24;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error occured, Error data has been saved to the Logs located in Documents");
+                LoggingSystem.WriteToLog(ex.ToString());
+                Process.Start("explorer.exe", LoggingSystem.BeyondFolder);
+            }
+
         }
 
         private void Page_Initialized(object sender, EventArgs e)
         {
-            if (Settings.Default.Path == "")
-            {
-                button.Content = "Set Path";
-                button.Icon = Wpf.Ui.Common.SymbolRegular.Folder24;
-            }
-
-            string[] processesToCheck = { "EasyAntiCheat_EOS", "Beyond", "FortniteClient-Win64-Shipping", "FortniteLauncher", "FortniteClient-Win64-Shipping_BE" };
-
-            bool anyProcessRunning = false;
-
-            foreach (string processName in processesToCheck)
-            {
-                Process[] processes = Process.GetProcessesByName(processName);
-                if (processes.Length > 0)
-                {
-                    anyProcessRunning = true;
-                    break;
-                }
-            }
-
-            if (anyProcessRunning)
-            {
-                button.Content = "Close";
-                button.Icon = SymbolRegular.ErrorCircle24;
-            }
-            else
+            try
             {
                 if (Settings.Default.Path == "")
                 {
                     button.Content = "Set Path";
-                    button.Icon = SymbolRegular.Folder24;
-                } else
-                {
-                    button.Content = "Launch";
-                    button.Icon = SymbolRegular.Play24;
+                    button.Icon = Wpf.Ui.Common.SymbolRegular.Folder24;
                 }
-               
+
+                string[] processesToCheck = { "EasyAntiCheat_EOS", "Beyond", "FortniteClient-Win64-Shipping", "FortniteLauncher", "FortniteClient-Win64-Shipping_BE" };
+
+                bool anyProcessRunning = false;
+
+                foreach (string processName in processesToCheck)
+                {
+                    Process[] processes = Process.GetProcessesByName(processName);
+                    if (processes.Length > 0)
+                    {
+                        anyProcessRunning = true;
+                        break;
+                    }
+                }
+
+                if (anyProcessRunning)
+                {
+                    button.Content = "Close";
+                    button.Icon = SymbolRegular.ErrorCircle24;
+                }
+                else
+                {
+                    if (Settings.Default.Path == "")
+                    {
+                        button.Content = "Set Path";
+                        button.Icon = SymbolRegular.Folder24;
+                    }
+                    else
+                    {
+                        button.Content = "Launch";
+                        button.Icon = SymbolRegular.Play24;
+                    }
+
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error occured, Error data has been saved to the Logs located in Documents");
+                LoggingSystem.WriteToLog(ex.ToString());
+                Process.Start("explorer.exe", LoggingSystem.BeyondFolder);
+            }
+
         }
 
         private void button_MouseEnter(object sender, MouseEventArgs e)

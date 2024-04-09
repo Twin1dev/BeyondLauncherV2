@@ -49,7 +49,6 @@ namespace BeyondLauncherV2.Fortnite
             var modded = provider.Files.GroupBy(x => x.Value.Path).Select(z => z.Key).ToList();
             var dupsName = provider.Files.GroupBy(x => x.Value.Name).Where(y => y.Count() > 1).Select(z => z.Key).ToList();
             var gober = provider.MountedVfs.ToList();
-
             foreach (var pak in gober)
             {
                 if (!pak.IsEncrypted)

@@ -11,10 +11,17 @@ namespace BeyondLauncherV2.Utilities
     {
         public static void ShowToast(string title, string message)
         {
-            new ToastContentBuilder()
-                .AddText(title)
-                .AddText(message)
-                .Show();
+            try
+            {
+                new ToastContentBuilder()
+             .AddText(title)
+             .AddText(message)
+             .Show();
+            } catch
+            {
+                LoggingSystem.WriteToLog("Failed to Show Toast");
+            }
+         
         }
     }
 }
