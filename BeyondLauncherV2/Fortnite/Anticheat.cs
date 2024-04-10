@@ -150,10 +150,13 @@ namespace BeyondLauncherV2.Fortnite
                     }
                 }
             }
-            provider.UnloadAllVfs();
+            provider.UnloadNonStreamedVfs();
+           
+
             provider.Dispose();
 
             pakstring = "";
+
             return result;
         }
 

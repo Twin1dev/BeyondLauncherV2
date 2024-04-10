@@ -11,7 +11,15 @@ namespace BeyondLauncherV2.Utilities
     {
         public static void DownloadFile(string URL, string path)
         {
-            new WebClient().DownloadFile(URL, path);
+            using (WebClient wc = new())
+            {
+                wc.DownloadFile(URL, path);
+                
+                while (wc.IsBusy)
+                {
+                    Thread.Sleep(100);
+                }
+            }
         }
 
         public static string ComputeHMACSHA256(string data, string key)

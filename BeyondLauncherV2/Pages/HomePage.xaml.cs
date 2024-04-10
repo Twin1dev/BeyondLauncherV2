@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Wpf.Ui.Common;
 using System.Diagnostics;
+using System.IO;
 
 namespace BeyondLauncherV2.Pages
 {
@@ -107,6 +108,12 @@ namespace BeyondLauncherV2.Pages
                     return;
                 }
 
+                if (Settings.Default.Path == "")
+                {
+                    MessageBox.Show("You must set your Path in Library before playing!");
+                    return;
+                }
+
                 ToastUtils.ShowToast("Launching Game..", "This may take a bit.");
 
                 DependencyObject parent = VisualTreeHelper.GetParent(this);
@@ -133,6 +140,29 @@ namespace BeyondLauncherV2.Pages
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                 SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
                 SimpleUtils.SafeKillProcess("Beyond");
+
+                if (Settings.Default.BubbleWrap)
+                {
+                    LoggingSystem.WriteToLog("Downloading Bubble Wrap Mod");
+                    SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/pakchunkBubbleWrap-WindowsClient.pak", Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBubbleWrap-WindowsClient.pak");
+                    SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/pakchunkBubbleWrap-WindowsClient.sig", Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBubbleWrap-WindowsClient.sig");
+                } else
+                {
+                    if (File.Exists(Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBubbleWrap-WindowsClient.pak"))
+                    {
+                        File.Delete(Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBubbleWrap-WindowsClient.pak");
+                    }
+                }
+
+                if (!File.Exists(Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBeyond-WindowsClient.pak"))
+                {
+                    SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/pakchunkBeyond-WindowsClient.pak", Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBeyond-WindowsClient.pak");
+                }
+                if (!File.Exists(Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBeyond-WindowsClient.sig"))
+                {
+                    SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/pakchunkBeyond-WindowsClient.sig", Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBeyond-WindowsClient.sig");
+                }
+
 
 #if STAFF
             Launch.LaunchDev();
