@@ -57,62 +57,57 @@ namespace BeyondLauncherV2.Pages
 
         }
 
-        DispatcherTimer timer;
         string PathToDownloadTo = "";
+        string fileUrl = "http://104.194.10.244:3550/download/EasyInstallerV2.exe";
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (DownloadButton.Content == "Cancel")
+            if (DownloadButton.Content.ToString() == "Cancel")
             {
                 Process.Start(Process.GetCurrentProcess().MainModule.FileName);
                 Application.Current.Shutdown();
             }
-
-
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            else
             {
-                dialog.Multiselect = false;
-                dialog.Title = "Select your Fortnite Folder!";
-                dialog.IsFolderPicker = true;
-                dialog.EnsurePathExists = true;
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
                 {
-                    PathToDownloadTo = dialog.FileName;
+                    dialog.Multiselect = false;
+                    dialog.Title = "Select the folder to save the file";
+                    dialog.IsFolderPicker = true;
+                    dialog.EnsurePathExists = true;
+                    if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                    {
+                        PathToDownloadTo = dialog.FileName;
+                        DownloadFile();
+                    }
                 }
-                else
-                {
-                    return;
-                }
-
             }
-
-            var httpClient = new WebClient();
-
-            var manifest = JsonConvert.DeserializeObject<ManifestFile>(httpClient.DownloadString("https://manifest.fnbuilds.services/12.41/12.41.manifest"));
-
-            Download(manifest, "12.41", PathToDownloadTo);
-
-            DownloadButton.Content = "Cancel";
-
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
-            timer.Tick += ProgTick;
-            timer.Start();
-
-
         }
 
-
-        private void ProgTick(object sender, EventArgs e)
+        private void DownloadFile()
         {
-            ProgText.Content = PROGRESS;
-            ProgRing.Progress = PERCENT;
-
-            if (PERCENT >= 99.80)
+            if (!string.IsNullOrEmpty(PathToDownloadTo))
             {
-                timer.Stop();
-                DownloadButton.Content = "Done!";
+                using (WebClient client = new WebClient())
+                {
+                    string fileName = System.IO.Path.GetFileName(fileUrl);
+                    string filePath = System.IO.Path.Combine(PathToDownloadTo, fileName);
+                    try
+                    {
+                        client.DownloadFile(fileUrl, filePath);
+                        Process.Start(filePath, PathToDownloadTo);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error downloading file: {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a folder to download the file to.");
             }
         }
-
     }
 }
+
