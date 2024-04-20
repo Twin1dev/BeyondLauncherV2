@@ -13,9 +13,10 @@
         <ui:Button CornerRadius="25" Content="" Height="168" Width="1128" HorizontalAlignment="Center" MouseOverBackground="#0FFFFFFF" PressedBackground="#0FFFFFFF" Margin="0,65,0,0" VerticalAlignment="Top"/>
         <ui:Button CornerRadius="25" Content="" Height="408" Width="1128" HorizontalAlignment="Center" MouseOverBackground="#0FFFFFFF" PressedBackground="#0FFFFFFF" Margin="0,280,0,0" VerticalAlignment="Top"/>
         <Label Content="Download" FontFamily="Segoe UI Bold" FontSize="45px" HorizontalAlignment="Left" Margin="104,81,0,0" VerticalAlignment="Top" Height="68" Width="246"/>
-        <ui:Button x:Name="DownloadButton" Content="Start Download"  FontSize="11" Margin="0,459,0,0" VerticalAlignment="Top" Height="42" Width="104" Click="Button_Click" HorizontalAlignment="Center"/>
+        <ui:Button x:Name="DownloadButton" Content="Start Download"  FontSize="20"  FontFamily="Segoe UI Variable Small Semibold" Margin="0,496,0,0" VerticalAlignment="Top" Height="75" Width="202" Click="Button_Click" HorizontalAlignment="Center"/>
         <Label Content="Huge thanks to Blk for Providing downloads for everyone!&#10;You can donate to keep the downloads online" FontFamily="Segoe UI Variable Small Semibold" FontSize="15px" HorizontalAlignment="Left" Margin="104,310,0,0" VerticalAlignment="Top" Height="70" Width="555"/>
         <ui:Hyperlink Content="here" NavigateUri="https://www.paypal.com/paypalme/blksservers" Margin="419,326,0,0" VerticalAlignment="Top"/>
+        <Label Content="Build Size: 83GB&#10;  Version: 12.41" FontSize="20" FontFamily="Segoe UI Variable Small Semibold"  HorizontalAlignment="Center" Margin="0,434,0,0" VerticalAlignment="Top" Height="70" Width="152"/>
 
     </Grid>
 </Page>

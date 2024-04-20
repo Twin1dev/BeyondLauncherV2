@@ -59,6 +59,7 @@ namespace BeyondLauncherV2
                     imageBrush.ImageSource = new BitmapImage(new Uri(RPC.client.CurrentUser.GetAvatarURL(DiscordRPC.User.AvatarFormat.PNG)));
 
                     AvatarButton.Background = imageBrush;
+
                 }
                 catch { }
             }

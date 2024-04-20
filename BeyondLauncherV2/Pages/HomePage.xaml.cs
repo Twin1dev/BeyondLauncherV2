@@ -16,6 +16,7 @@ namespace BeyondLauncherV2.Pages
 {
     public partial class HomePage
     {
+        private static string username = "";
         public HomePage()
         {
             InitializeComponent();
@@ -26,7 +27,7 @@ namespace BeyondLauncherV2.Pages
                 {
                     using (WebClient wc = new WebClient())
                     {
-                        string username = wc.DownloadString($"http://backend.beyondfn.xyz:8990/getUsernamebyemail/{Settings.Default.Email}");
+                        username = wc.DownloadString($"http://backend.beyondfn.xyz:8990/getUsernamebyemail/{Settings.Default.Email}");
 
                         HelloLabel.Content = "Hello, " + username + "!";
                     }
@@ -50,14 +51,6 @@ namespace BeyondLauncherV2.Pages
         {
             try
             {
-                bool Ret = HwidBanning.PushHWID().GetAwaiter().GetResult();
-
-                if (!Ret)
-                {
-                    MessageBox.Show("Something seems to be conflicting with the usage of beyond, Please create a ticket in the support server");
-                    Environment.Exit(0);
-                    return;
-                }
 
              
 
@@ -105,6 +98,8 @@ namespace BeyondLauncherV2.Pages
                     SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                     SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
                     SimpleUtils.SafeKillProcess("Beyond");
+
+                    RPC.UpdateRPC("Idling..", true);
                     return;
                 }
 
@@ -130,7 +125,7 @@ namespace BeyondLauncherV2.Pages
                 LoggingSystem.WriteToLog("Launching Game");
 
                 if (Settings.Default.StartRPC)
-                    RPC.UpdateRPC("Launching Game", true);
+                    RPC.UpdateRPC($"Launching Game as {username}", true);
 
                 SimpleUtils.SafeKillProcess("EpicGamesLauncher");
                 SimpleUtils.SafeKillProcess("EpicWebHelper");
@@ -154,15 +149,19 @@ namespace BeyondLauncherV2.Pages
                     }
                 }
 
-                if (!File.Exists(Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBeyond-WindowsClient.pak"))
-                {
-                    SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/pakchunkBeyond-WindowsClient.pak", Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBeyond-WindowsClient.pak");
-                }
-                if (!File.Exists(Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBeyond-WindowsClient.sig"))
-                {
-                    SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/pakchunkBeyond-WindowsClient.sig", Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBeyond-WindowsClient.sig");
-                }
+             
+                SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/pakchunkBeyond-WindowsClient.pak", Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBeyond-WindowsClient.pak");
+                SimpleUtils.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/pakchunkBeyond-WindowsClient.sig", Settings.Default.Path + "\\FortniteGame\\Content\\Paks\\pakchunkBeyond-WindowsClient.sig");
+                
 
+                bool Ret = HwidBanning.PushHWID().GetAwaiter().GetResult();
+
+                if (!Ret)
+                {
+                    MessageBox.Show("Something seems to be conflicting with the usage of beyond, Please create a ticket in the support server");
+                    Environment.Exit(0);
+                    return;
+                }
 
 #if STAFF
             Launch.LaunchDev();
@@ -171,7 +170,7 @@ namespace BeyondLauncherV2.Pages
 #endif
 
 
-
+                RPC.UpdateRPC($"Playing Beyond as {username}", true);
                 button.Content = "Close";
                 button.Icon = SymbolRegular.ErrorCircle24;
             }

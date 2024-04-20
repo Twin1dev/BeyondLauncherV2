@@ -1,6 +1,7 @@
 ﻿using BeyondLauncherV2.Properties;
 using BeyondLauncherV2.Utilities;
 using Microsoft.Win32;
+using MS.WindowsAPICodePack.Internal;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -91,13 +92,27 @@ namespace BeyondLauncherV2.Fortnite
             new Thread(() =>
             {
 
-                if (HwidBanning.CheckForBan().GetAwaiter().GetResult())
-                {
-                    MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server or Check logs!");
-                    Environment.Exit(0);
-                    return;
-                }
+                int Result = HwidBanning.CheckForBan().GetAwaiter().GetResult();
+       
 
+                if (Result == 0x1)
+                {
+                    MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server!");
+                    Environment.Exit(0);
+
+                }
+                else if (Result == 0x190)
+                {
+                    MessageBox.Show("An error occured, Please make a ticket in the support server.\n\nError Code: 0x190");
+                    Environment.Exit(0);
+   
+                }
+                else if (Result == 0x180)
+                {
+                    MessageBox.Show("An error occured, Please make a ticket in the support server.\n\nError Code: 0x180");
+                    Environment.Exit(0);
+
+                }
 
                 if (!File.Exists(LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe"))
                 {
@@ -170,11 +185,22 @@ namespace BeyondLauncherV2.Fortnite
             {
                 try
                 {
-                    if (HwidBanning.CheckForBan().GetAwaiter().GetResult())
+
+                    int Result = HwidBanning.CheckForBan().GetAwaiter().GetResult();
+                    if (Result == 0x1)
                     {
                         MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server!");
                         Environment.Exit(0);
-                        return;
+                    }
+                    else if (Result == 0x190)
+                    {
+                        MessageBox.Show("An error occured, Please make a ticket in the support server.\n\nError Code: 0x190");
+                        Environment.Exit(0);
+                    }
+                    else if (Result == 0x180)
+                    {
+                        MessageBox.Show("An error occured, Please make a ticket in the support server.\n\nError Code: 0x180");
+                        Environment.Exit(0);
                     }
 
                     SimpleUtils.SafeKillProcess("EpicGamesLauncher");

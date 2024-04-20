@@ -40,8 +40,8 @@ namespace BeyondLauncherV2.Fortnite
         {
             bool result = false;
             string path = Settings.Default.Path;
-            string paks = path + "\\FortniteGame\\Content\\Paks";
-            var provider = new DefaultFileProvider(paks, SearchOption.TopDirectoryOnly, true, new CUE4Parse.UE4.Versions.VersionContainer(CUE4Parse.UE4.Versions.EGame.GAME_UE4_25));
+          //  string paks = path + "\\FortniteGame\\Content\\Paks";
+            var provider = new DefaultFileProvider(path, SearchOption.AllDirectories, true, new CUE4Parse.UE4.Versions.VersionContainer(CUE4Parse.UE4.Versions.EGame.GAME_UE4_25));
             provider.Initialize();
             provider.SubmitKey(new CUE4Parse.UE4.Objects.Core.Misc.FGuid(), new CUE4Parse.Encryption.Aes.FAesKey("0x2713E24A338C7E8BF1A50E3F1987F33BB151F04B192E89E940A623AB34F8502F"));
 
@@ -58,6 +58,7 @@ namespace BeyondLauncherV2.Fortnite
                     foreach (var file in files)
                     {
                         var fileLowerd = file.ToLower();
+
                         var withoutExt = fileLowerd.Split('.')[0];
                         var uasset = withoutExt + ".uasset";
                         var ubulk = withoutExt + ".ubulk";

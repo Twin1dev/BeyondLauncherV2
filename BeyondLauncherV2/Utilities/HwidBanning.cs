@@ -103,14 +103,25 @@ namespace BeyondLauncherV2.Utilities
                     return true;
                 }
 
-                if (await CheckForBan())
+                int Result = await CheckForBan();
+
+                if (Result == 0x1)
                 {
                     MessageBox.Show("You are Currently Banned from Beyond. If this is a mistake, Please go to the support server!");
                     Environment.Exit(0);
                     return true;
+                } else if (Result == 0x190)
+                {
+                    MessageBox.Show("An error occured, Please make a ticket in the support server.\n\nError Code: 0x190");
+                    Environment.Exit(0);
+                    return true;
+                } else if (Result == 0x180) {
+                    MessageBox.Show("An error occured, Please make a ticket in the support server.\n\nError Code: 0x180");
+                    Environment.Exit(0);
+                    return true;
                 }
 
-        
+
 
                 return true;
             }
@@ -141,7 +152,7 @@ namespace BeyondLauncherV2.Utilities
             return false;
         }
 
-        public static async Task<bool> CheckForBan()
+        public static async Task<int> CheckForBan()
         {
             try
             {
@@ -153,7 +164,7 @@ namespace BeyondLauncherV2.Utilities
                     if (UUID == "")
                     {
                         LoggingSystem.WriteToLog("Checking for Ban returned a code: 0x180");
-                        return true;
+                        return 0x180;
                     }
 
                     string res = wc.DownloadString("http://backend.beyondfn.xyz:8990/backend/hwid/" + UUID + "/isBannedSmokearr");
@@ -166,22 +177,22 @@ namespace BeyondLauncherV2.Utilities
                     if (res == "notfound")
                     {
                         LoggingSystem.WriteToLog("Checking for Ban returned a code: 0x190");
-                        return true;
+                        return 0x190;
                     }
                     else if (res == "false")
                     {
                         // Handle false case
-                        return false;
+                        return 0x0;
                     }
                     else if (res == "true")
                     {
-                        return true;
+                        return 0x1;
                     }
                     else
                     {
                         // Handle unexpected response
                         LoggingSystem.WriteToLog("Unexpected response: " + res);
-                        return false;
+                        return 0x1;
                     }
                 }
             }
@@ -189,7 +200,7 @@ namespace BeyondLauncherV2.Utilities
             {
                 // Handle exceptions
                 LoggingSystem.WriteToLog("An error occurred: " + ex.Message);
-                return false;
+                return 0x1;
             }
         }
 

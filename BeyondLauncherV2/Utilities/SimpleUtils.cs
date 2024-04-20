@@ -70,7 +70,7 @@ namespace BeyondLauncherV2.Utilities
 
         public static void OpenLink(string link)
         {
-            Process p = new Process();
+            Process p = new();
             p.StartInfo.FileName = link;
             p.StartInfo.UseShellExecute = true;
             p.Start();
