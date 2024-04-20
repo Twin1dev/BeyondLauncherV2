@@ -11,15 +11,23 @@ namespace BeyondLauncherV2.Utilities
     {
         public static void DownloadFile(string URL, string path)
         {
-            using (WebClient wc = new())
+            try
             {
-                wc.DownloadFile(URL, path);
-                
-                while (wc.IsBusy)
+                using (WebClient wc = new())
                 {
-                    Thread.Sleep(100);
+                    wc.DownloadFile(URL, path);
+
+                    while (wc.IsBusy)
+                    {
+                        Thread.Sleep(100);
+                    }
                 }
+            } catch (Exception ex)
+            {
+                MessageBox.Show("An error occured while downloading a file, please consider running as admin");
+                Environment.Exit(0);
             }
+           
         }
 
         public static string ComputeHMACSHA256(string data, string key)
