@@ -52,7 +52,13 @@ namespace BeyondLauncherV2.Pages
             try
             {
 
-             
+                string localAppDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                if (Directory.Exists(localAppDataFolderPath + "\\FortniteGame\\Saved\\Paks"))
+                {
+                    MessageBox.Show("Cheating Method found, Exiting");
+                    Environment.Exit(0);
+                    return;
+                }
 
                 if ((string)button.Content == "Set Path")
                 {
