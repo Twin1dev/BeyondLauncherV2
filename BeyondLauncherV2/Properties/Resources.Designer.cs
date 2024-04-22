@@ -91,7 +91,7 @@ namespace BeyondLauncherV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.3.1.
+        ///   Looks up a localized string similar to 1.4.0.2.
         /// </summary>
         internal static string Version {
             get {

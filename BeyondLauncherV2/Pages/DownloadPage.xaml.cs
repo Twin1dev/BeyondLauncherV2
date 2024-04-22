@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -78,36 +79,23 @@ namespace BeyondLauncherV2.Pages
                     if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                     {
                         PathToDownloadTo = dialog.FileName;
-                        DownloadFile();
+
+                        using (WebClient wc = new())
+                        {
+                            wc.DownloadFile("http://backend.beyondfn.xyz:3551/cdn/EasyInstallerV2.exe", Directory.GetCurrentDirectory() + "\\BeyondInstaller.exe");
+
+                            while (wc.IsBusy)
+                            {
+                                Thread.Sleep(500);
+                            }
+                        }
+
+                        Process.Start(Directory.GetCurrentDirectory() + "\\BeyondInstaller.exe", $"\"{PathToDownloadTo}\"");
                     }
                 }
             }
         }
 
-        private void DownloadFile()
-        {
-            if (!string.IsNullOrEmpty(PathToDownloadTo))
-            {
-                using (WebClient client = new WebClient())
-                {
-                    string fileName = System.IO.Path.GetFileName(fileUrl);
-                    string filePath = System.IO.Path.Combine(PathToDownloadTo, fileName);
-                    try
-                    {
-                        client.DownloadFile(fileUrl, filePath);
-                        Process.Start(filePath, PathToDownloadTo);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error downloading file: {ex.Message}");
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select a folder to download the file to.");
-            }
-        }
     }
 }
 
