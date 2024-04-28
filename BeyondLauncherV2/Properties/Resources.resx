@@ -118,6 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Beyond" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Beyond.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BeyondLauncherHook_vmp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BeyondLauncherHook.vmp.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Beyond_Client" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Beyond.Client.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -127,7 +133,10 @@
   <data name="EAC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EAC.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\test.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Version" xml:space="preserve">
-    <value>1.4.0.2</value>
+    <value>1.4.0.4</value>
   </data>
 </root>

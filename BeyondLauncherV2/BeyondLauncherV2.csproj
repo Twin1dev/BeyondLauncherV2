@@ -17,7 +17,10 @@
     <None Remove="Pages\travis-scott-fortnite_3279.png" />
     <None Remove="Resources\Beyond.Client.Dev.dll" />
     <None Remove="Resources\Beyond.Client.dll" />
+    <None Remove="Resources\Beyond.exe" />
+    <None Remove="Resources\BeyondLauncherHook.vmp.dll" />
     <None Remove="Resources\EAC.zip" />
+    <None Remove="Resources\test.zip" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +29,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Beyond.Client.dll" />
+    <EmbeddedResource Include="Resources\Beyond.exe" />
+    <EmbeddedResource Include="Resources\BeyondLauncherHook.vmp.dll" />
     <EmbeddedResource Include="Resources\EAC.zip" />
+    <EmbeddedResource Include="Resources\test.zip" />
   </ItemGroup>
 
   <ItemGroup>

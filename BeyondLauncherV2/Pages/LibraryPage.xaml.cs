@@ -8,6 +8,7 @@ using System.Windows.Media.Animation;
 using System.Diagnostics;
 using BeyondLauncherV2.Utilities;
 using Wpf.Ui.Common;
+using BeyondLauncherV2.Fortnite;
 
 namespace BeyondLauncherV2.Pages
 {
@@ -99,7 +100,7 @@ namespace BeyondLauncherV2.Pages
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                 SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
-                SimpleUtils.SafeKillProcess("Beyond");
+                SimpleUtils.SafeKillProcess(EAC.NewFileName);
                 button.Content = "Launch";
                 button.Icon = SymbolRegular.Play24;
                 Thread.Sleep(1500);
@@ -110,7 +111,7 @@ namespace BeyondLauncherV2.Pages
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                 SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
-                SimpleUtils.SafeKillProcess("Beyond");
+                SimpleUtils.SafeKillProcess(EAC.NewFileName);
                 return;
             }
             else if (button.Content.ToString() == "Select Path") 

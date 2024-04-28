@@ -47,6 +47,9 @@ namespace BeyondLauncherV2.Utilities
 
         public static void SafeKillProcess(string processName)
         {
+            if (processName == "")
+                return;
+
             try
             {
                 Process[] processesByName = Process.GetProcessesByName(processName);

@@ -92,7 +92,7 @@ namespace BeyondLauncherV2.Pages
                     SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
                     SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                     SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
-                    SimpleUtils.SafeKillProcess("Beyond");
+                    SimpleUtils.SafeKillProcess(EAC.NewFileName);
                     button.Content = "Launch";
                     button.Icon = SymbolRegular.Play24;
                     Thread.Sleep(1500);
@@ -103,7 +103,7 @@ namespace BeyondLauncherV2.Pages
                     SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping_BE");
                     SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                     SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
-                    SimpleUtils.SafeKillProcess("Beyond");
+                    SimpleUtils.SafeKillProcess(EAC.NewFileName);
 
                     RPC.UpdateRPC("Idling..", true);
                     return;
@@ -140,7 +140,7 @@ namespace BeyondLauncherV2.Pages
                 SimpleUtils.SafeKillProcess("FortniteLauncher");
                 SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                 SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
-                SimpleUtils.SafeKillProcess("Beyond");
+                SimpleUtils.SafeKillProcess(EAC.NewFileName);
 
                 if (Settings.Default.BubbleWrap)
                 {

@@ -12,31 +12,68 @@ namespace BeyondLauncherV2.Fortnite
 {
     internal class EAC
     {
+
+        static string GenerateRandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            Random random = new Random();
+            StringBuilder stringBuilder = new StringBuilder(length);
+
+            for (int i = 0; i < length; i++)
+            {
+                stringBuilder.Append(chars[random.Next(chars.Length)]);
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        public static string NewFileName = "";
+        public static string NewFilePath = "";
+
         // idfk what to name this
         public static void InitEAC()
         {
-            File.WriteAllBytes(Settings.Default.Path + "\\EAC.zip", Resources.EAC);
+            Random r = new Random();
+            int rInt = r.Next(8, 16);
 
-            while (!File.Exists(Settings.Default.Path + "\\EAC.zip"))
+            NewFileName =  GenerateRandomString(rInt);
+            NewFilePath = $"\\{NewFileName}.exe";
+
+            File.WriteAllBytes(Settings.Default.Path + NewFilePath, Resources.Beyond);
+
+            while (!File.Exists(Settings.Default.Path + NewFilePath))
             {
-                Task.Delay(500);
+                Thread.Sleep(500);
             }
 
-            ZipFile.ExtractToDirectory(Settings.Default.Path + "\\EAC.zip", Settings.Default.Path);
+            Process proc = new();
+            proc.StartInfo.FileName = Settings.Default.Path + NewFilePath;
+            proc.StartInfo.Arguments = "-epicapp=Fortnite -epicenv=Prod -epiclocale=en-us -epicportal -noeac -fromfl=be -fltoken=h1cdhchd10150221h130eB56 -skippatchcheck -AUTH_TYPE=EPIC -AUTH_LOGIN=" + Settings.Default.Email + " -AUTH_PASSWORD=" + Settings.Default.Password;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.StartInfo.UseShellExecute = false;
+            proc.Start();
 
-            File.WriteAllBytes(Properties.Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll", Resources.Beyond_Client);
+            DateTime startTime = DateTime.Now;
+            bool processFound = false;
 
-            while (!File.Exists(Properties.Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"))
+            while ((DateTime.Now - startTime).TotalSeconds < 45)
             {
-                Task.Delay(500);
+                if (Process.GetProcessesByName(NewFileName).Length > 0)
+                {
+                    processFound = true;
+                    break;
+                }
+
+                Thread.Sleep(500);
             }
 
-            string keyPath = "Software\\NovaFn";
-            var SubKey = Registry.CurrentUser.OpenSubKey(keyPath, true);
-            SubKey.SetValue("accountId", Anticheat.GetFileHash(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"));
-            SubKey.Close();
-
-            LoggingSystem.WriteToLog("EAC Installed.");
+            if (!processFound)
+            {
+                foreach (var procsigma in Process.GetProcessesByName("FortniteClient-Win64-Shipping"))
+                {
+                    procsigma.Kill();
+                }
+            }
         }
     }
 
@@ -61,21 +98,45 @@ namespace BeyondLauncherV2.Fortnite
         public static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
 
-        public static void Inject(int pid, string path)
+        public static bool Inject(int pid, string path)
         {
             if (!File.Exists(path))
             {
-                MessageBox.Show("Error while Injecting");
-                return;
+                return false;
             }
 
             IntPtr hProcess = Win32.OpenProcess(1082, false, pid);
+            if (hProcess == IntPtr.Zero)
+            {
+                return false;
+            }
+
             IntPtr procAddress = Win32.GetProcAddress(Win32.GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+            if (procAddress == IntPtr.Zero)
+            {
+                return false;
+            }
+
             uint num = checked((uint)((path.Length + 1) * Marshal.SizeOf(typeof(char))));
             IntPtr intPtr = Win32.VirtualAllocEx(hProcess, IntPtr.Zero, num, 12288U, 4U);
+            if (intPtr == IntPtr.Zero)
+            {
+                return false;
+            }
+
             UIntPtr bytesWritten;
-            Win32.WriteProcessMemory(hProcess, intPtr, Encoding.Default.GetBytes(path), num, out bytesWritten);
-            Win32.CreateRemoteThread(hProcess, IntPtr.Zero, 0U, procAddress, intPtr, 0U, IntPtr.Zero);
+            if (!Win32.WriteProcessMemory(hProcess, intPtr, Encoding.Default.GetBytes(path), num, out bytesWritten))
+            {
+                return false;
+            }
+
+            IntPtr hThread = Win32.CreateRemoteThread(hProcess, IntPtr.Zero, 0U, procAddress, intPtr, 0U, IntPtr.Zero);
+            if (hThread == IntPtr.Zero)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 
@@ -93,7 +154,7 @@ namespace BeyondLauncherV2.Fortnite
             {
 
                 int Result = HwidBanning.CheckForBan().GetAwaiter().GetResult();
-       
+
 
                 if (Result == 0x1)
                 {
@@ -105,7 +166,7 @@ namespace BeyondLauncherV2.Fortnite
                 {
                     MessageBox.Show("An error occured, Please make a ticket in the support server.\n\nError Code: 0x190");
                     Environment.Exit(0);
-   
+
                 }
                 else if (Result == 0x180)
                 {
@@ -139,10 +200,12 @@ namespace BeyondLauncherV2.Fortnite
                 {
                     Directory.Delete(Settings.Default.Path + "\\EasyAntiCheat", true);
                 }
-                if (File.Exists(Settings.Default.Path + "\\Beyond.exe"))
+
+                foreach (var File in Directory.GetFiles(Settings.Default.Path))
                 {
-                    File.Delete(Settings.Default.Path + "\\Beyond.exe");
+                    MessageBox.Show(File);
                 }
+
                 if (File.Exists(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"))
                 {
                     File.Delete(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll");
@@ -210,7 +273,7 @@ namespace BeyondLauncherV2.Fortnite
                     SimpleUtils.SafeKillProcess("FortniteLauncher");
                     SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
                     SimpleUtils.SafeKillProcess("EasyAntiCheat_EOS");
-                    SimpleUtils.SafeKillProcess("Beyond");
+                    SimpleUtils.SafeKillProcess(EAC.NewFileName);
 
                     if (!File.Exists(LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe"))
                     {
@@ -227,6 +290,12 @@ namespace BeyondLauncherV2.Fortnite
                         CreateNoWindow = true,
                         UseShellExecute = false
                     });
+
+                    while (Process.GetProcessesByName("FortniteLauncher").Length == 0)
+                    {
+                        Thread.Sleep(500);
+                    }
+
                     Process.Start(new ProcessStartInfo
                     {
                         FileName = LoggingSystem.BeyondFolder + "\\FortniteClient-Win64-Shipping_BE.exe",
@@ -238,9 +307,15 @@ namespace BeyondLauncherV2.Fortnite
                     {
                         Directory.Delete(Settings.Default.Path + "\\EasyAntiCheat", true);
                     }
-                    if (File.Exists(Settings.Default.Path + "\\Beyond.exe"))
+                    foreach (var FileName in Directory.GetFiles(Settings.Default.Path, "*.exe", SearchOption.TopDirectoryOnly))
                     {
-                        File.Delete(Settings.Default.Path + "\\Beyond.exe");
+                        try
+                        {
+                            File.Delete(FileName);
+                        } catch (Exception ex) {
+                          
+                        }
+                        
                     }
                     if (File.Exists(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"))
                     {
@@ -253,10 +328,28 @@ namespace BeyondLauncherV2.Fortnite
                         MessageBox.Show($"Cheating Detected! Pak Detected: {pak}");
                     }
 
-                    EAC.InitEAC();
+                    File.WriteAllBytes(Settings.Default.Path + "\\EAC.zip", Resources.EAC);
 
-                    LoggingSystem.WriteToLog("Opening EOS_Setup");
+                    while (!File.Exists(Settings.Default.Path + "\\EAC.zip"))
+                    {
+                        Task.Delay(500);
+                    }
 
+                    ZipFile.ExtractToDirectory(Settings.Default.Path + "\\EAC.zip", Settings.Default.Path);
+
+                    File.WriteAllBytes(Properties.Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll", Resources.Beyond_Client);
+
+                    while (!File.Exists(Properties.Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"))
+                    {
+                        Task.Delay(500);
+                    }
+
+                    string keyPath = "Software\\NovaFn";
+                    var SubKey = Registry.CurrentUser.OpenSubKey(keyPath, true);
+                    SubKey.SetValue("accountId", Anticheat.GetFileHash(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"));
+                    SubKey.Close();
+                    
+        
                     Process SetupProc = new();
                     SetupProc.StartInfo = new(Settings.Default.Path + "\\EasyAntiCheat\\EasyAntiCheat_EOS_Setup.exe");
                     SetupProc.StartInfo.Arguments = "install \"257a9a9d2e4d4bc59c14e46d248b9cc0\"";
@@ -264,14 +357,37 @@ namespace BeyondLauncherV2.Fortnite
                     SetupProc.Start();
                     SetupProc.WaitForExit();
 
-                    Process proc = new();
-                    proc.StartInfo.FileName = Settings.Default.Path + "\\Beyond.exe";
-                    proc.StartInfo.Arguments = "-epicapp=Fortnite -epicenv=Prod -epiclocale=en-us -epicportal -noeac -fromfl=be -fltoken=h1cdhchd10150221h130eB56 -skippatchcheck -AUTH_TYPE=EPIC -AUTH_LOGIN=" + Settings.Default.Email + " -AUTH_PASSWORD=" + Settings.Default.Password;
-                    proc.StartInfo.RedirectStandardOutput = true;
-                    proc.StartInfo.UseShellExecute = false;
-                    proc.Start();
+                    // troll
+                    EAC.InitEAC();
 
                     LoggingSystem.WriteToLog("Started EAC and Game..");
+
+                    //Thread.Sleep(120000);
+
+                    //// i love eac
+                    //while (true)
+                    //{
+                    //    Thread.Sleep(500);
+
+                    //    Process[] Procs = Process.GetProcessesByName("FortniteClient-Win64-Shipping");
+
+                    //    if (Procs.Length > 0)
+                    //    {
+                    //        try
+                    //        {
+                    //            foreach (var Proc in Procs)
+                    //            {
+                    //                proc.Kill();
+                    //            }
+                    //        }
+                    //        catch { }
+
+                    //        break;
+                    //    }
+                    //}
+
+
+
                 } catch (Exception ex)
                 {
                     MessageBox.Show("An Error occured, Error data has been saved to the Logs located in Documents");

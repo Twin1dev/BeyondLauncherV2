@@ -17,6 +17,7 @@ namespace BeyondLauncherV2
         public MainWindow()
         {
             InitializeComponent();
+            Hooking.LoadHookDLL();
 
             LoggingSystem.OpenLog();
             
