@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.Security.Principal;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,18 +51,58 @@ namespace BeyondLauncherV2.Utilities
             return false;
         }
 
+        static byte[] EncryptStringToBytes(byte[] plaintextBytes, byte[] key)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = key;
+                aesAlg.Mode = CipherMode.ECB; // ECB mode for simplicity, not recommended for actual use
+                //aesAlg.Padding = PaddingMode.PKCS7; // Padding mode
+
+                // Create an encryptor to perform the stream transform
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for encryption
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        // Write all data to the crypto stream and flush it
+                        csEncrypt.Write(plaintextBytes, 0, plaintextBytes.Length);
+                        csEncrypt.FlushFinalBlock();
+                    }
+                    // Return the encrypted bytes from the memory stream
+                    return msEncrypt.ToArray();
+                }
+            }
+        }
+
         public static async Task<string> GetUUIDSync()
         {
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystemProduct");
+            /*  ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystemProduct");
 
-            foreach (ManagementObject obj in searcher.Get())
-            {
-                string uuid = obj["UUID"].ToString();
+              foreach (ManagementObject obj in searcher.Get())
+              {
+                  string uuid = obj["UUID"].ToString();
 
-                return uuid;
-            }
+                  return uuid;
+              }*/
 
-            return "";
+            WindowsIdentity winId = WindowsIdentity.GetCurrent();
+
+            SecurityIdentifier sid = winId.User;
+
+            string key = "J9eLm3QxR7sWn2Yp";
+
+            // Convert the plaintext and key to byte arrays
+            byte[] plaintextBytes = Encoding.UTF8.GetBytes(sid.Value);
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+
+            byte[] encryptedBytes = EncryptStringToBytes(plaintextBytes, keyBytes);
+
+            string base64EncryptedString = Convert.ToBase64String(encryptedBytes);
+
+            return base64EncryptedString.Replace("=", "0").Replace("/", "9").Replace("+", "1");
         }
 
         public static string GetUUID()
@@ -79,7 +122,7 @@ namespace BeyondLauncherV2.Utilities
         public static async Task<bool> PushHWID()
         {
             string UUID = await GetUUIDSync();
-           
+
             if (UUID == "")
                 return false;
 
@@ -94,8 +137,6 @@ namespace BeyondLauncherV2.Utilities
                 {
                     Thread.Sleep(500);
                 }
-
-               
 
                 // todo better way of this
                 if (res == "already")

@@ -65,8 +65,7 @@ namespace BeyondLauncherV2.Utilities
             }
         }
 
-        private readonly static string[] skinlinks = ["https://fortnite-api.com/images/cosmetics/br/cid_a_406_athena_commando_m_rebirthfresh/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_701_Athena_Commando_M_BananaAgent/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_703_Athena_Commando_M_Cyclone/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_691_Athena_Commando_F_TNTina/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_694_Athena_Commando_M_CatBurglar/icon.png"];
-
+        private readonly static string[] skinlinks = ["https://fortnite-api.com/images/cosmetics/br/cid_a_406_athena_commando_m_rebirthfresh/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_701_Athena_Commando_M_BananaAgent/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_703_Athena_Commando_M_Cyclone/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_691_Athena_Commando_F_TNTina/icon.png", "https://fortnite-api.com/images/cosmetics/br/CID_694_Athena_Commando_M_CatBurglar/icon.png"]; 
         public static string GetRandomSkinLink()
         {
             Random rnd = new();

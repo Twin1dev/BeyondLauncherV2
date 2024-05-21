@@ -82,5 +82,17 @@ namespace BeyondLauncherV2.Properties {
                 this["BubbleWrap"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CloseOnLaunch {
+            get {
+                return ((bool)(this["CloseOnLaunch"]));
+            }
+            set {
+                this["CloseOnLaunch"] = value;
+            }
+        }
     }
 }

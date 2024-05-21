@@ -114,7 +114,7 @@ namespace BeyondLauncherV2.Pages
                 SimpleUtils.SafeKillProcess(EAC.NewFileName);
                 return;
             }
-            else if (button.Content.ToString() == "Select Path") 
+            else
             {
                 using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
                 {

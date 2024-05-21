@@ -57,6 +57,11 @@ namespace BeyondLauncherV2.Pages
                 }
             }
         }
+
+        private void Page_KeyDown(object sender, KeyEventArgs e)
+        {
+           
+        }
     }
     
 }

@@ -18,8 +18,8 @@
     <None Remove="Resources\Beyond.Client.Dev.dll" />
     <None Remove="Resources\Beyond.Client.dll" />
     <None Remove="Resources\Beyond.exe" />
-    <None Remove="Resources\BeyondLauncherHook.vmp.dll" />
     <None Remove="Resources\EAC.zip" />
+    <None Remove="Resources\GFSDK_Aftermath_Lib.x64.dll" />
     <None Remove="Resources\test.zip" />
   </ItemGroup>
 
@@ -30,7 +30,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Beyond.Client.dll" />
     <EmbeddedResource Include="Resources\Beyond.exe" />
-    <EmbeddedResource Include="Resources\BeyondLauncherHook.vmp.dll" />
     <EmbeddedResource Include="Resources\EAC.zip" />
     <EmbeddedResource Include="Resources\test.zip" />
   </ItemGroup>

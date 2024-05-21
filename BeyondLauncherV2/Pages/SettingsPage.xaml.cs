@@ -27,6 +27,7 @@ namespace BeyondLauncherV2.Pages
         {
             RPCSwitch.IsChecked = Settings.Default.StartRPC;
             BubbleWrap_Switch.IsChecked = Settings.Default.BubbleWrap;
+            CloseOnLaunch_Switch.IsChecked = Settings.Default.CloseOnLaunch;
         }
 
         private void RPCSwitch_Click(object sender, RoutedEventArgs e)
@@ -91,6 +92,12 @@ namespace BeyondLauncherV2.Pages
         private void BubbleWrap_Switch_Click(object sender, RoutedEventArgs e)
         {
             Settings.Default.BubbleWrap = (bool)BubbleWrap_Switch.IsChecked!;
+            Settings.Default.Save();
+        }
+
+        private void CloseOnLaunch_Switch_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.CloseOnLaunch = (bool)CloseOnLaunch_Switch.IsChecked!;
             Settings.Default.Save();
         }
     }

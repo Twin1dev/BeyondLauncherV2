@@ -7,6 +7,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
 using System.IO;
+using BeyondLauncherV2.Fortnite;
+using System.Diagnostics;
 
 namespace BeyondLauncherV2
 {
@@ -14,10 +16,14 @@ namespace BeyondLauncherV2
     public partial class MainWindow : Window
     {
         public static ImageBrush imgBrush = new ImageBrush();
+
         public MainWindow()
         {
+            //Settings.Default.Reset();
             InitializeComponent();
-            Hooking.LoadHookDLL();
+            //Hooking.LoadHookDLL();
+
+
 
             LoggingSystem.OpenLog();
             
@@ -69,6 +75,11 @@ namespace BeyondLauncherV2
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (!EAC.bProcessFound)
+            {
+                SimpleUtils.SafeKillProcess("FortniteClient-Win64-Shipping");
+            }
+
             try
             {
               RPC.StopRPC();

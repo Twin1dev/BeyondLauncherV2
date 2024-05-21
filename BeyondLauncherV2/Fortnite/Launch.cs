@@ -29,6 +29,7 @@ namespace BeyondLauncherV2.Fortnite
 
         public static string NewFileName = "";
         public static string NewFilePath = "";
+        public static bool bProcessFound = false;
 
         // idfk what to name this
         public static void InitEAC()
@@ -36,7 +37,7 @@ namespace BeyondLauncherV2.Fortnite
             Random r = new Random();
             int rInt = r.Next(8, 16);
 
-            NewFileName =  GenerateRandomString(rInt);
+            NewFileName = /*"Beyond";*/ GenerateRandomString(rInt);
             NewFilePath = $"\\{NewFileName}.exe";
 
             File.WriteAllBytes(Settings.Default.Path + NewFilePath, Resources.Beyond);
@@ -54,29 +55,51 @@ namespace BeyondLauncherV2.Fortnite
             proc.Start();
 
             DateTime startTime = DateTime.Now;
-            bool processFound = false;
 
             while ((DateTime.Now - startTime).TotalSeconds < 45)
             {
                 if (Process.GetProcessesByName(NewFileName).Length > 0)
                 {
-                    processFound = true;
+                    bProcessFound = true;
+
+                    if (Settings.Default.CloseOnLaunch)
+                    {
+                        Environment.Exit(0);
+                    }
+
                     break;
                 }
 
                 Thread.Sleep(500);
             }
 
-            if (!processFound)
+
+            if (!bProcessFound)
             {
                 foreach (var procsigma in Process.GetProcessesByName("FortniteClient-Win64-Shipping"))
                 {
                     procsigma.Kill();
                 }
             }
+
+            DateTime startTime2 = DateTime.Now;
+            while ((DateTime.Now - startTime2).TotalSeconds < 45)
+            {
+
+            }
+
+            string pak;
+            if (Anticheat.Scan(out pak))
+            {
+                foreach (var procsigma in Process.GetProcessesByName("FortniteClient-Win64-Shipping"))
+                {
+                    procsigma.Kill();
+                }
+                MessageBox.Show($"Cheating Detected! Pak Detected: {pak}");
+                return;
+            }
         }
     }
-
     public class Win32
     {
         [DllImport("kernel32.dll")]
@@ -155,6 +178,7 @@ namespace BeyondLauncherV2.Fortnite
 
                 int Result = HwidBanning.CheckForBan().GetAwaiter().GetResult();
 
+               //tar MessageBox.Show(Result.ToString());
 
                 if (Result == 0x1)
                 {
@@ -212,16 +236,16 @@ namespace BeyondLauncherV2.Fortnite
                 }
 
 
-                File.WriteAllBytes(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll", Resources.Beyond_Client_Dev);
+               /* File.WriteAllBytes(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll", Resources.Beyond_Client_Dev);
 
                 while (!File.Exists(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"))
                 {
                     Task.Delay(500);
                 }
-
+*/
                 string keyPath = "Software\\NovaFn";
                 var SubKey = Registry.CurrentUser.OpenSubKey(keyPath, true);
-                SubKey.SetValue("accountId", Anticheat.GetFileHash(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"));
+                SubKey.SetValue("accountId", Resources.ClientVersion);
                 SubKey.Close();
 
 
@@ -326,6 +350,7 @@ namespace BeyondLauncherV2.Fortnite
                     if (Anticheat.Scan(out pak))
                     {
                         MessageBox.Show($"Cheating Detected! Pak Detected: {pak}");
+                        return;
                     }
 
                     File.WriteAllBytes(Settings.Default.Path + "\\EAC.zip", Resources.EAC);
@@ -346,7 +371,7 @@ namespace BeyondLauncherV2.Fortnite
 
                     string keyPath = "Software\\NovaFn";
                     var SubKey = Registry.CurrentUser.OpenSubKey(keyPath, true);
-                    SubKey.SetValue("accountId", Anticheat.GetFileHash(Settings.Default.Path + "\\Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64\\GFSDK_Aftermath_Lib.x64.dll"));
+                    SubKey.SetValue("accountId", Resources.ClientVersion);
                     SubKey.Close();
                     
         
@@ -361,6 +386,8 @@ namespace BeyondLauncherV2.Fortnite
                     EAC.InitEAC();
 
                     LoggingSystem.WriteToLog("Started EAC and Game..");
+
+            
 
                     //Thread.Sleep(120000);
 

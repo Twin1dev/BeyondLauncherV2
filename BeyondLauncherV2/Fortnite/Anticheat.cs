@@ -38,9 +38,10 @@ namespace BeyondLauncherV2.Fortnite
 
         public static bool Scan(out string pakstring)
         {
+         
             bool result = false;
             string path = Settings.Default.Path;
-          //  string paks = path + "\\FortniteGame\\Content\\Paks";
+            //  string paks = path + "\\FortniteGame\\Content\\Paks";
             var provider = new DefaultFileProvider(path, SearchOption.AllDirectories, true, new CUE4Parse.UE4.Versions.VersionContainer(CUE4Parse.UE4.Versions.EGame.GAME_UE4_25));
             provider.Initialize();
             provider.SubmitKey(new CUE4Parse.UE4.Objects.Core.Misc.FGuid(), new CUE4Parse.Encryption.Aes.FAesKey("0x2713E24A338C7E8BF1A50E3F1987F33BB151F04B192E89E940A623AB34F8502F"));
@@ -152,7 +153,7 @@ namespace BeyondLauncherV2.Fortnite
                 }
             }
             provider.UnloadNonStreamedVfs();
-           
+
 
             provider.Dispose();
 

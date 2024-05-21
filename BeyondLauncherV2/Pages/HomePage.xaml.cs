@@ -46,6 +46,29 @@ namespace BeyondLauncherV2.Pages
             }
         }
 
+
+
+        static bool IsModuleSigned(string modulePath)
+        {
+            try
+            {
+                // Load the module as an assembly
+                var assembly = System.Reflection.Assembly.ReflectionOnlyLoadFrom(modulePath);
+
+                // Get the digital signature
+                byte[] publicKey = assembly.GetName().GetPublicKey();
+
+                // If the public key is not null, the module is signed
+                return publicKey != null;
+            }
+            catch (Exception)
+            {
+                // Handle exceptions, such as if the module is not a .NET assembly or if it cannot be loaded
+                return false;
+            }
+        }
+
+
         #region Events
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -169,8 +192,44 @@ namespace BeyondLauncherV2.Pages
                     return;
                 }
 
+
+                int processId = Process.GetCurrentProcess().Id;
+                Process process = Process.GetProcessById(processId);
+                ProcessModuleCollection modules = process.Modules;
+
+
+                // MessageBox.Show("SYSTEM32".Contains("System32",StringComparison.CurrentCultureIgnoreCase).ToString());
+
+/*                var NewThread = new Thread(() =>
+                {
+                    while (true)
+                    {
+                        Thread.Sleep(3000);
+                        foreach (ProcessModule module in modules)
+                        {
+                            if (module.FileVersionInfo.LegalCopyright == null)
+                            {
+                                if (!module.FileName.ToLower().Contains("system32"))
+                                {
+                                    if (!module.FileName.ToLower().Contains("program files"))
+                                    {
+                                        //MessageBox.Show(module.FileName);
+                                        Environment.Exit(0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                });
+
+                NewThread.IsBackground = true;
+                NewThread.Start();*/
+
+
 #if STAFF
-            Launch.LaunchDev();
+                Launch.LaunchDev();
 #else
                 Launch.LaunchGame();
 #endif

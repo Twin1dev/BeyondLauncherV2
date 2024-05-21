@@ -12,9 +12,5 @@ namespace BeyondLauncherV2.Utilities
     internal class Hooking
     {
 
-        public static void LoadHookDLL()
-        {
-
-        }
     }
 }

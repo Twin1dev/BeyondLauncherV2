@@ -18,7 +18,7 @@
 
 
         </ui:Hyperlink>
-        <ui:Button Icon="Play24" CornerRadius="10" FontSize="20px" Content="Login" Margin="498,576,0,0" VerticalAlignment="Top" Height="74" Width="234" Click="Button_Click" Background="#3F000000" MouseOverBackground="#3F000000" PressedBackground="#3F000000"/>
+        <ui:Button x:Name="LoginButton" Icon="Play24" CornerRadius="10" FontSize="20px" Content="Login" Margin="498,576,0,0" VerticalAlignment="Top" Height="74" Width="234" Click="Button_Click" Background="#3F000000" MouseOverBackground="#3F000000" PressedBackground="#3F000000"/>
         <Label Content="Login to Beyond" FontSize="50px" FontFamily="Segoe UI Bold" Foreground="White" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="-60,140,0,0" VerticalAlignment="Top" Height="80" Width="624"/>
         <Label FontSize="15px" FontFamily="Segoe UI" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="303,220,0,0" VerticalAlignment="Top" Height="80" Width="624">
             <TextBlock>Not Registered? Go to <Run FontWeight="Bold">#register</Run> in the Discord</TextBlock>

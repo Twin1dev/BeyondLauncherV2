@@ -75,28 +75,17 @@ namespace BeyondLauncherV2.Properties {
         /// </summary>
         internal static byte[] Beyond_Client {
             get {
-                object obj = ResourceManager.GetObject("Beyond_Client", resourceCulture);
+                object obj = ResourceManager.GetObject("Beyond.Client", resourceCulture);
                 return ((byte[])(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to V1.0.
         /// </summary>
-        internal static byte[] Beyond_Client_Dev {
+        internal static string ClientVersion {
             get {
-                object obj = ResourceManager.GetObject("Beyond_Client_Dev", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] BeyondLauncherHook_vmp {
-            get {
-                object obj = ResourceManager.GetObject("BeyondLauncherHook_vmp", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("ClientVersion", resourceCulture);
             }
         }
         
@@ -111,17 +100,7 @@ namespace BeyondLauncherV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] test {
-            get {
-                object obj = ResourceManager.GetObject("test", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1.4.0.4.
+        ///   Looks up a localized string similar to 1.4.1.
         /// </summary>
         internal static string Version {
             get {

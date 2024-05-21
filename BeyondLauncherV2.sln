@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeyondLauncherV2", "BeyondL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeyondUpdater", "BeyondUpdater\BeyondUpdater.csproj", "{201CC046-E485-4DD6-9FC4-A798F8E59ECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareBanningTest", "HardwareBanningTest\HardwareBanningTest.csproj", "{4A737F7A-F806-4C92-9F91-4858D932BC8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HardwareBanningTest", "HardwareBanningTest\HardwareBanningTest.csproj", "{4A737F7A-F806-4C92-9F91-4858D932BC8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeyondInstaller", "BeyondInstaller\BeyondInstaller.csproj", "{C955D4CF-D488-4E64-99DB-CE35E6E8DCCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,12 @@ Global
 		{4A737F7A-F806-4C92-9F91-4858D932BC8E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4A737F7A-F806-4C92-9F91-4858D932BC8E}.Staff|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A737F7A-F806-4C92-9F91-4858D932BC8E}.Staff|Any CPU.Build.0 = Debug|Any CPU
+		{C955D4CF-D488-4E64-99DB-CE35E6E8DCCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C955D4CF-D488-4E64-99DB-CE35E6E8DCCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C955D4CF-D488-4E64-99DB-CE35E6E8DCCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C955D4CF-D488-4E64-99DB-CE35E6E8DCCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C955D4CF-D488-4E64-99DB-CE35E6E8DCCF}.Staff|Any CPU.ActiveCfg = Debug|Any CPU
+		{C955D4CF-D488-4E64-99DB-CE35E6E8DCCF}.Staff|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,114 +1,121 @@
-﻿using System.Management;
+﻿using System.Diagnostics;
+using System.Management;
 using System.Net.NetworkInformation;
+using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Security.Principal;
+using System.Text;
 
 namespace HardwareBanningTest
 {
     internal class Program
     {
 
-        static NetworkInterface GetPrimaryNetworkInterface()
-        {
-            NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
-            foreach (NetworkInterface networkInterface in networkInterfaces)
+        static string GetDeviceId()
+        {
+
+            try
             {
-                // Check if the network interface is up and not a loopback interface
-                if (networkInterface.NetworkInterfaceType != NetworkInterfaceType.Loopback &&
-                    networkInterface.OperationalStatus == OperationalStatus.Up &&
-                    networkInterface.GetIPProperties().GatewayAddresses.Count > 0)
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystemProduct");
+                ManagementObjectCollection collection = searcher.Get();
+
+                foreach (ManagementObject obj in collection)
                 {
-                    // Return the first found primary network interface
-                    return networkInterface;
+                    return obj["UUID"].ToString(); // Device ID is often stored in the UUID property
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
             }
 
             return null;
         }
 
-        static void SKibidiSIgma()
+        static string GetWindowsProductId()
         {
             try
             {
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystemProduct");
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem");
+                ManagementObjectCollection collection = searcher.Get();
 
-                foreach (ManagementObject obj in searcher.Get())
+                foreach (ManagementObject obj in collection)
                 {
-                    string uuid = obj["UUID"].ToString();
-
-
-                    Console.WriteLine("SMBIOS UUID: " + uuid);
+                    return obj["SerialNumber"].ToString();
                 }
             }
-            catch (ManagementException e)
+            catch (Exception ex)
             {
-                Console.WriteLine("Error: " + e.Message);
+                Console.WriteLine("Error: " + ex.Message);
             }
 
-            try
-            {
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
+            return null;
+        }
 
-                foreach (ManagementObject obj in searcher.Get())
+        static byte[] EncryptStringToBytes(byte[] plaintextBytes, byte[] key)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = key;
+                aesAlg.Mode = CipherMode.ECB; // ECB mode for simplicity, not recommended for actual use
+                //aesAlg.Padding = PaddingMode.PKCS7; // Padding mode
+
+                // Create an encryptor to perform the stream transform
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for encryption
+                using (MemoryStream msEncrypt = new MemoryStream())
                 {
-                    string biosSerialNumber = obj["SerialNumber"].ToString();
-
-                    Console.WriteLine("BIOS Serial Number: " + biosSerialNumber);
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        // Write all data to the crypto stream and flush it
+                        csEncrypt.Write(plaintextBytes, 0, plaintextBytes.Length);
+                        csEncrypt.FlushFinalBlock();
+                    }
+                    // Return the encrypted bytes from the memory stream
+                    return msEncrypt.ToArray();
                 }
-            }
-            catch (ManagementException e)
-            {
-                Console.WriteLine("Error: " + e.Message);
-            }
-
-            try
-            {
-                // Get the network interfaces
-                NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
-
-                // Find the active network interfaces
-                NetworkInterface activeInterface = interfaces.FirstOrDefault(
-                    x => x.OperationalStatus == OperationalStatus.Up &&
-                         x.NetworkInterfaceType != NetworkInterfaceType.Loopback &&
-                         x.GetIPProperties().GatewayAddresses.Count > 0);
-
-                if (activeInterface != null)
-                {
-                    // Get the MAC address of the active interface
-                    PhysicalAddress macAddress = activeInterface.GetPhysicalAddress();
-                    string macAddressString = BitConverter.ToString(macAddress.GetAddressBytes());
-
-                    Console.WriteLine("MAC Address of the Active Interface: " + macAddressString);
-                }
-                else
-                {
-                    Console.WriteLine("No active network interface found.");
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error: " + e.Message);
             }
         }
 
         static void Main(string[] args)
         {
-            try
-            {
-                ManagementObjectSearcher searcher =
-                    new ManagementObjectSearcher("SELECT * FROM Win32_BaseBoard");
+            WindowsIdentity winId = WindowsIdentity.GetCurrent();
 
-                foreach (ManagementObject obj in searcher.Get())
-                {
-                    string motherboardSerial = obj["SerialNumber"].ToString();
+            SecurityIdentifier sid = winId.User;
 
-                    Console.WriteLine("Motherboard Serial Number: " + motherboardSerial);
-                }
-                SKibidiSIgma();
-            }
-            catch (ManagementException e)
+            Console.WriteLine(sid.Value);
+
+          /*  Console.WriteLine(GetDeviceId());
+            Console.WriteLine(GetWindowsProductId());
+
+            string PNPDeviceID = "";
+
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_DesktopMonitor");
+            foreach (ManagementObject obj in searcher.Get())
             {
-                Console.WriteLine("Error: " + e.Message);
+                PNPDeviceID = obj["PNPDeviceID"].ToString();
             }
+            string DeviceId = GetDeviceId();
+            // Your plaintext string
+            string plaintext = $"{PNPDeviceID.Split("\\").Last()}___{DeviceId}";
+
+            // Your secret key (must be 16, 24, or 32 bytes long for AES)
+            string key = "J9eLm3QxR7sWn2Yp";
+
+            // Convert the plaintext and key to byte arrays
+            byte[] plaintextBytes = Encoding.UTF8.GetBytes(plaintext);
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+
+            byte[] encryptedBytes = EncryptStringToBytes(plaintextBytes, keyBytes);
+
+            string base64EncryptedString = Convert.ToBase64String(encryptedBytes);
+
+            Console.WriteLine($"\n\n{base64EncryptedString}");
+*/
+            Console.ReadLine();
         }
     }
 }
